@@ -1,0 +1,8 @@
+[
+  {% for data in data_quantiles %}
+     { "etime": {{ data.etime }}, "quant1": {{ data.quant1 }}, "quant2": {{ data.quant2 }}, "quant3": {{ data.quant3 }}, "quant4": {{ data.quant4 }} }
+     {% if not forloop.last %} 
+     , 
+     {% endif %}
+  {% endfor %}
+]

@@ -1,0 +1,5 @@
+backends:
+- name: datamining
+  class: B1
+  instances: 1
+  options: dynamic

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /etl_process
+Disallow: /etl.json
+Disallow: /dm_process
+Disallow: /dm.json

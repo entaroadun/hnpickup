@@ -1,0 +1,32 @@
+[
+{ 
+  "label": "Newest best stories", 
+  "data": [
+  {% for data in data_best %}
+     {{ data }} 
+     {% if not forloop.last %} 
+     , 
+     {% endif %}
+  {% endfor %}
+  ],
+  "yaxis": 1
+},
+{ 
+  "label": "Oldest new stories", 
+  "data": [
+  {% for data in data_new %}
+     {{ data }} 
+     {% if not forloop.last %} 
+     , 
+     {% endif %}
+  {% endfor %}
+  ], 
+  "yaxis": 2
+},
+{
+  "_comment": "This will be calculated on the client side, just because we don't want to overload the google app engine", 
+  "label": "Pickup ratio",
+  "data": [ ],
+  "yaxis": 3 
+}
+]

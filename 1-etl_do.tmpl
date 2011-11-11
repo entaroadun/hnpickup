@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>ETL Raw Results Table</title>
+    <link type="text/css" rel="stylesheet" href="/css/main.css" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+  </head>
+  <body>
+  <div id='main'>
+    <h4 id='title'>ETL Raw Results Table</h4>
+    <table id='table'>
+    {% for result in results %}
+    <tr><td>{{ result.col1  }}</td><td>{{ result.col2 }}</td><td>{{ result.col3 }}</td></tr>
+    {% endfor %}
+    </table>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Hacker News Story Pickup Rate</title>
+    <link type="text/css" rel="stylesheet" href="/css/main.css" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <script language="javascript" type="text/javascript" src="/js/flot/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/flot/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/quickflip/jquery.quickflip.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/plot.js"></script>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-26837634-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+       })();
+    </script>
+  </head>
+  <body>
+  <div id='main'>
+    <h4 id='title'>Hacker News Story Pickup Rate</h4>
+    <div id='flip'>
+      <div id='grapher'>
+        <div id='graph' class='cta'>
+	</div>
+     </div>
+      <div id='helper'>
+        <div id='help' class='cta'>
+	  Definitions:
+	  <ul>
+	    <li><b>Newest best stories</b> - is average of 15 newest stories on the HN home page, this measures how new are the stories on the first page and how many "up-voters" are currently clicking. </li>
+	    <li><b>Oldest new stories</b> - is average of 15 oldest stories on the HN newest page, this measures how many new competing stories there are and how many "submitters" are currently sending. </li>
+	    <li><b>Pickup ratio</b> - is equal to <i>Newest best stories</i> minus <i>Oldest new stories</i>, this measures what is your chance of getting to the first page. You want a lot of "up-voters" and very few "submitters". </li>
+	    <li><b>Now it's ... time</b> - gives four recommendation based on four quantiles of <i>Pickup ratio</i> values that are gathered over many days from HN. </li>
+	  </ul>
+	  Data Mining provides quantiles (percentiles). Based on three quantiles system generates four recommendations for submitting new story: <i>very good</i>, <i>good</i>, <i>so-so</i>, and <i>bad</i>.
+	</div>
+      </div>
+    </div>
+    <a id='back' href='http://news.ycombinator.com/submit'>Now it's <span id='timing'>...</span> time to submit a story</a>
+  </div>
+  </body>
+</html>

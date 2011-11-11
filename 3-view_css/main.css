@@ -1,0 +1,71 @@
+body { 
+  font: 16px "Lucida Grande", Sans-Serif; 
+  color: #FFFFFF;
+  background-color: #BCB9B7;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#main {
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+#title {
+  margin: 0;
+  padding: 0;
+  display: block;
+  font-size: 1.2em;
+}
+#grapher, #graph, #help, #helper, #flip {
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px; 
+  height: 200px; 
+  font-size: 0.85em;
+  border: 1px solid #BCB9B7; 
+}
+#help {
+  text-align: left;
+  padding: 10px 20px 30px 20px;
+  width: 460px;
+  height: 155px;
+  background-color: #E5E1DE;
+  color: #444444;
+}
+ul, li {
+  list-style: none;
+  padding: 2px;
+  margin: 0;
+}
+ul li:before {
+  content: "\00BB \0020";
+}
+#back {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #807B77;
+  margin-left: auto;
+  margin-right: auto;
+}
+#timing {
+  color: #444444;
+}
+#table {
+  padding: 0;
+  margin: 0;
+  border: 1px solid #444444;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+#table td, tr {
+  margin: 0;
+  padding: 3px 7px 3px 7px;
+  border: 1px solid #444444;
+}
+
