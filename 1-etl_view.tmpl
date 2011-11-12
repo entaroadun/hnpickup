@@ -24,9 +24,15 @@
   "yaxis": 2
 },
 {
-  "_comment": "This will be calculated on the client side, just because we don't want to overload the google app engine", 
   "label": "Pickup ratio",
-  "data": [ ],
+  "data": [
+  {% for data in pickup_ratio %}
+     {{ data }} 
+     {% if not forloop.last %} 
+     , 
+     {% endif %}
+  {% endfor %}
+  ], 
   "yaxis": 3 
 }
 ]

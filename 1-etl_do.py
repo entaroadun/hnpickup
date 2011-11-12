@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 #
-# Copyright 2007 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Data Mining starts with collecting
+# the right data. Here we mine the average
+# time of newest articles on HN "news" web page
+# and oldest articles on HN "newest" web page
+# if "newest" articles get to the "news" page
+# then it's good time to submit. We don't knwo this
+# exact time but we can just approximate
+# 
+# Google App Engine CRON job will run this page
+# user will not have access to it
+# app.yaml and cron.yaml define access to this page
 #
 
 import os
@@ -28,16 +26,26 @@ from google.appengine.api.urlfetch import DownloadError
 from google.appengine.ext.webapp import template
 
 ## =================================
+## == N-point average constant
+## == How many point will we use
+## == to summarize dynamics of HN
+## =================================
+
+N_POINT_AVERAGE = 10
+
+## =================================
 ## === ETL data table, very simple,
 ## === it holds just three values
+## === (plus a time stamp)
 ## === that are collected from
 ## === two web pages every ~ 15 min
 ## =================================
 
-class hntiming(db.Model):
+class HNtime(db.Model):
   etime = db.IntegerProperty()
-  timing_new = db.FloatProperty()
-  timing_best = db.FloatProperty()
+  time_best = db.FloatProperty()
+  time_new = db.FloatProperty()
+  time_diff = db.FloatProperty()
 
 ## =================================
 ## == Web page that does all the ETL
@@ -53,10 +61,10 @@ class MainHandler(webapp.RequestHandler):
     raw_data = [];
 ## ---------------------------
 ## -- ETL Source 1: 
-## -- 15-point average of oldest pages
+## -- N-point average of oldest pages
 ## -- simple regular expression extraction
     data_new = [];
-    data_new_timing = float(0);
+    data_new_time = float(0);
     result = urlfetch.fetch(url='https://news.ycombinator.com/newest',deadline=60)
     if result.status_code == 200:
       txt_data = result.content
@@ -69,21 +77,20 @@ class MainHandler(webapp.RequestHandler):
           tmp_time = int(m.group(1))
         data_new.append(tmp_time)
         raw_data.append({'col1':'newest','col2':m.group(1),'col3':m.group(2)})
-      data_new.sort()
-      half_of_data = int(len(data_new)/2)
+      data_new.sort(reverse=True)
       data_new_num = 0
       data_new_den = 0
-      for i in range(half_of_data+1,len(data_new)+1):
-        data_new_num += data_new[i-1]
+      for i in range(0,N_POINT_AVERAGE):
+        data_new_num += data_new[i]
         data_new_den += 1
       if data_new_den: 
-        data_new_timing = float(data_new_num)/float(data_new_den)  
+        data_new_time = float(data_new_num)/float(data_new_den)  
 ## ---------------------------
 ## -- ETL Source 2: 
 ## -- 15-point avarege of newst pages
 ## -- simple regular expression extraction
     data_best = [];
-    data_best_timing = float(0);
+    data_best_time = float(0);
     result = urlfetch.fetch(url='https://news.ycombinator.com/news',deadline=60)
     if result.status_code == 200:
       txt_data = result.content
@@ -97,24 +104,23 @@ class MainHandler(webapp.RequestHandler):
         data_best.append(tmp_time)
         raw_data.append({'col1':'news','col2':m.group(1),'col3':m.group(2)});
       data_best.sort()  
-      half_of_data = int(len(data_best)/2)
       data_best_num = 0
       data_best_den = 0
-      for i in range(1,half_of_data+1):
+      for i in range(0,N_POINT_AVERAGE):
+        data_best_num += data_best[i]
         data_best_den += 1
-        data_best_num += data_best[i-1]
       if data_best_den: 
-        data_best_timing = float(data_best_num)/float(data_best_den)  
+        data_best_time = float(data_best_num)/float(data_best_den)  
 ## ---------------------------
 ## -- if we have results from
 ## -- both sources then lets 
 ## -- put it in a database
-    if data_new_timing and data_best_timing:
+    if data_new_time and data_best_time:
       etime_now = int(time.time()*1000)
-      hntime = hntiming(etime=etime_now,timing_new=data_new_timing,timing_best=data_best_timing)
+      hntime = HNtime(etime=etime_now,time_best=data_best_time,time_new=data_new_time,time_diff=data_best_time-data_new_time)
       hntime.put()
       raw_data.append({'col1':'timestamp','col2':'newest','col3':'news'})
-      raw_data.append({'col1':etime_now,'col2':data_new_timing,'col3':data_best_timing})
+      raw_data.append({'col1':etime_now,'col2':data_new_time,'col3':data_best_time})
       raw_data.append({'col1':'lenghts','col2':len(data_new),'col3':len(data_best)})
       raw_data.append({'col1':'denominators','col2':data_new_den,'col3':data_best_den})
       raw_data.append({'col1':'numerators','col2':data_new_num,'col3':data_best_num})
@@ -123,10 +129,10 @@ class MainHandler(webapp.RequestHandler):
 ## -- results went to the DB
 ## -- but we will do it by looking
 ## -- at second last (previous) entry
-    qry = db.GqlQuery('SELECT * FROM hntiming ORDER BY etime DESC limit 2');
+    qry = db.GqlQuery('SELECT * FROM HNtime ORDER BY etime DESC limit 2');
     results = qry.fetch(2)
     if len(results) > 1:
-      raw_data.append({'col1':results[1].etime,'col2':results[1].timing_new,'col3':results[1].timing_best})
+      raw_data.append({'col1':results[1].etime,'col2':results[1].time_new,'col3':results[1].time_best})
 ## ---------------------------
 ## -- finally print the report
 ## -- not really needed 

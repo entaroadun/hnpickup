@@ -5,4 +5,4 @@ cron:
 - description: HN timing quantiles calculations
   url: /dm_process
   target: datamining
-  schedule: every 24 hours
+  schedule: every 4 hours

@@ -33,12 +33,13 @@ framework and data flow:
 
 1. ETL = Extract, Transform, Load
 2. DM = Data Mining
-3. VISUALISATION = Data presentation in a format
+3. VISUALISATION (VIEW) = Data presentation in a format
 that can support decision making process
 
 This is how the code is organized. You can think of 
 it as a "Hello, World!" data mining web service 
-and application.
+and application. Data can be visualized using JS frameworks
+or it can be imported to external desktop software through JSON.
 
 ## =============================
 ## == WARNING

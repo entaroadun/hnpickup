@@ -70,17 +70,12 @@ $(function () {
      // massage the data into a graph
      // once it's fetched from the server
      function onDataReceived(series) {
-       data_length = series[0].data.length - 1;
-       // we want the web browser to calculate the actual 
-       // pickup ratio, so the google engine is not overloaded
-       // and we can save couple cents
-       var i = 0; for ( i = 0; i <= data_length; i ++ ) {
-         series[2].data.push([series[0].data[i][0],series[0].data[i][1]-series[1].data[i][1]]);
-       }
        $.plot($('#graph'),series,OPTIONS);
-       // use the data to make actual recommendation
-       // this is most important part
-       // the graph is just for shows
+       // Use latest data + plus precomputed quantiles
+       // to make actual recommendation.
+       // This is most important part of the DM process.
+       // The graph is just for shows.
+       data_length = series[0].data.length - 1;
        timing_diff = series[2].data[data_length][1];
        if ( timing_diff < QUANTILES.quant1 ) {
          timing_suggestion = 'very good' 
@@ -91,6 +86,7 @@ $(function () {
        } else {
          timing_suggestion = 'bad'
        }
+       // Update HTML with the recommendation
        $('#timing').text(timing_suggestion);
      }
      // jQuery ajax call

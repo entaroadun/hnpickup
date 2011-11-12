@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 #
-# Copyright 2007 Google Inc.
+# This is very simple data mining case.
+# If the "oldest new articles" are close to
+# "newest best articles" then we suspect it's
+# good time to publish your link. But how often
+# this happens. Ideally we would wait when this 
+# difference is minimal. Instead, we can use quantiles
+# that will stratify the rarety of this situation.
+# We arbitrarly decide that less than 0.125 are rare
+# cases and this is very good time to submit. 0.25 is not
+# so bad either. 
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Normally data mining will be more CPU and memory intensive.
+# Google App Engine has backends for that kind of work.
+# In order to have a script running in backend persistant
+# machine we need to define entries in:
+# backends.yamp, app.yaml, and cron.yaml
 #
 
 import os
@@ -35,10 +38,11 @@ from google.appengine.ext.webapp import template
 ## === two web pages every ~ 15 min
 ## =================================
 
-class hntiming(db.Model):
+class HNtime(db.Model):
   etime = db.IntegerProperty()
-  timing_new = db.FloatProperty()
-  timing_best = db.FloatProperty()
+  time_best = db.FloatProperty()
+  time_new = db.FloatProperty()
+  time_diff = db.FloatProperty()
 
 ## =================================
 ## === DM data table, very simple
@@ -47,7 +51,7 @@ class hntiming(db.Model):
 ## === decision whether to submit
 ## =================================
 
-class hnquantiles(db.Model):
+class HNquantiles(db.Model):
   etime = db.IntegerProperty()
   quant1 = db.FloatProperty()
   quant2 = db.FloatProperty()
@@ -94,11 +98,11 @@ class MainHandler(webapp.RequestHandler):
   def get(self):
     raw_data = [];
     pickup_ratio = [];
-    qry = db.GqlQuery('SELECT * FROM hntiming')
+    qry = db.GqlQuery('SELECT * FROM HNtime')
     results = qry.fetch(999)
     for result in results:
-      pickup_ratio.append(result.timing_best-result.timing_new)
-      raw_data.append({'col1':result.etime,'col2':result.timing_best-result.timing_new})
+      pickup_ratio.append(result.time_diff)
+      raw_data.append({'col1':result.etime,'col2':result.time_diff})
     pickup_ratio.sort()
 ## -------------------------------
 ## -- four intervals: 0.125 0.250 0.500 1.000
@@ -116,12 +120,12 @@ class MainHandler(webapp.RequestHandler):
 ## -- store quantiles in db with a 
 ## -- time stamp
     etime_now = int(time.time()*1000)
-    hnquant = hnquantiles(etime=etime_now,quant1=quant1,quant2=quant2,quant3=quant3,quant4=quant4)
-    hnquant.put()
+    hnquantiles = HNquantiles(etime=etime_now,quant1=quant1,quant2=quant2,quant3=quant3,quant4=quant4)
+    hnquantiles.put()
 ## -------------------------------
 ## -- check if we can retrieve 
 ## -- previous answer
-    qry = db.GqlQuery('SELECT * FROM hnquantiles ORDER BY etime DESC limit 2');
+    qry = db.GqlQuery('SELECT * FROM HNquantiles ORDER BY etime DESC limit 2');
     results = qry.fetch(2)
     if len(results) > 1:
       raw_data.append({'col1':'pr1','col2':results[1].quant1})

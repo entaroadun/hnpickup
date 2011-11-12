@@ -1,18 +1,15 @@
 #!/usr/bin/env python
 #
-# Copyright 2007 Google Inc.
+# Obviously, we want some way to get the 
+# data mining results out of the server.
+# This can be done similarly to ETL, that is,
+# through JSON structure. This is very flexible way
+# since we can also use JSON in other external 
+# software.
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Here we want the end user to be able to get to
+# the data through URL. This is defined in
+# app.yaml
 #
 
 import os
@@ -31,7 +28,7 @@ from google.appengine.ext import db
 ## === decision whether to submit
 ## =================================
 
-class hnquantiles(db.Model):
+class HNquantiles(db.Model):
   etime = db.IntegerProperty()
   quant1 = db.FloatProperty()
   quant2 = db.FloatProperty()
@@ -63,7 +60,7 @@ class MainHandler(webapp.RequestHandler):
 ## -- now we are ready to get 
 ## -- the data and feed it into
 ## -- json template
-    qry = db.GqlQuery('SELECT * FROM hnquantiles ORDER BY etime DESC limit '+str(ndata_elements));
+    qry = db.GqlQuery('SELECT * FROM HNquantiles ORDER BY etime DESC limit '+str(ndata_elements));
     results = qry.fetch(ndata_elements)
     for result in results:
       data_quantiles.append({'etime':int(result.etime),'quant1':float(result.quant1),'quant2':float(result.quant2),'quant3':float(result.quant3),'quant4':float(result.quant4)})
