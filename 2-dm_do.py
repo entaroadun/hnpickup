@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 #
 # This is very simple data mining case.
-# If the "oldest new articles" are close to
-# "newest best articles" then we suspect it's
-# good time to publish your link. But how often
-# this happens. Ideally we would wait when this 
-# difference is minimal. Instead, we can use quantiles
-# that will stratify the rarety of this situation.
-# We arbitrarly decide that less than 0.125 are rare
-# cases and this is very good time to submit. 0.25 is not
-# so bad either. 
+# If the "newest best articles" are very new compared
+# "oldest new articles" then we suspect it's
+# good time to publish your link: 
+#
+# pickup_ratio = time_new/time_best
+#
+# good_time = newsest_are_old/news_are_new
+#
+# Quantiles are perfect for quantifying random variables.
+# We want to create four intervals when it is good to
+# submit: very good, good, so-so, and bad.
 #
 # Normally data mining will be more CPU and memory intensive.
 # Google App Engine has backends for that kind of work.
@@ -32,6 +34,15 @@ from google.appengine.api.urlfetch import DownloadError
 from google.appengine.ext.webapp import template
 
 ## =================================
+## == We arbitrary set the quantile
+## == intervals
+## ================================
+
+QUANTILE_VERY_GOOD = 0.9
+QUANTILE_GOOD = 0.8
+QUANTILE_SO_SO = 0.7
+
+## =================================
 ## === ETL data table, very simple
 ## === it holds just three values
 ## === that are collected from
@@ -42,7 +53,7 @@ class HNtime(db.Model):
   etime = db.IntegerProperty()
   time_best = db.FloatProperty()
   time_new = db.FloatProperty()
-  time_diff = db.FloatProperty()
+  pickup_ratio = db.FloatProperty()
 
 ## =================================
 ## === DM data table, very simple
@@ -56,7 +67,9 @@ class HNquantiles(db.Model):
   quant1 = db.FloatProperty()
   quant2 = db.FloatProperty()
   quant3 = db.FloatProperty()
-  quant4 = db.FloatProperty()
+  max_best = db.FloatProperty()
+  max_new = db.FloatProperty()
+  max_pickup = db.FloatProperty()
 
 ## =================================
 ## == I took it from the web
@@ -96,31 +109,38 @@ def percentile(N, percent, key=lambda x:x):
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    raw_data = [];
+    html_data = [];
+    time_best = [];
+    time_new = [];
     pickup_ratio = [];
     qry = db.GqlQuery('SELECT * FROM HNtime')
     results = qry.fetch(999)
     for result in results:
-      pickup_ratio.append(result.time_diff)
-      raw_data.append({'col1':result.etime,'col2':result.time_diff})
-    pickup_ratio.sort()
+      time_best.append(result.time_best)
+      time_new.append(result.time_new)
+      pickup_ratio.append(result.pickup_ratio)
+      html_data.append({'col1':result.etime,'col2':result.pickup_ratio})
 ## -------------------------------
-## -- four intervals: 0.125 0.250 0.500 1.000
+## -- three probabilities: 0.9, 0.8, 0.7
 ## -- normally we would have something more complicated
-## -- for extracting important information
-    quant1 = percentile(pickup_ratio,0.125)
-    quant2 = percentile(pickup_ratio,0.250)
-    quant3 = percentile(pickup_ratio,0.500)
-    quant4 = percentile(pickup_ratio,1.000)
-    raw_data.append({'col1':'pr1','col2':quant1})
-    raw_data.append({'col1':'pr2','col2':quant2})
-    raw_data.append({'col1':'pr3','col2':quant3})
-    raw_data.append({'col1':'pr4','col2':quant4})
+## -- for extracting important information but
+## -- that's how we do DM here
+    pickup_ratio.sort()
+    quant1 = percentile(pickup_ratio,QUANTILE_VERY_GOOD)
+    quant2 = percentile(pickup_ratio,QUANTILE_GOOD)
+    quant3 = percentile(pickup_ratio,QUANTILE_SO_SO)
+    max_best = max(time_best)
+    max_new = max(time_new)
+    max_pickup = max(pickup_ratio)
+    html_data.append({'col1':'quant1','col2':quant1})
+    html_data.append({'col1':'quant2','col2':quant2})
+    html_data.append({'col1':'quant3','col2':quant3})
+    html_data.append({'col1':'max','col2':max_pickup})
 ## -------------------------------
 ## -- store quantiles in db with a 
 ## -- time stamp
     etime_now = int(time.time()*1000)
-    hnquantiles = HNquantiles(etime=etime_now,quant1=quant1,quant2=quant2,quant3=quant3,quant4=quant4)
+    hnquantiles = HNquantiles(etime=etime_now,quant1=quant1,quant2=quant2,quant3=quant3,max_best=max_best,max_new=max_new,max_pickup=max_pickup)
     hnquantiles.put()
 ## -------------------------------
 ## -- check if we can retrieve 
@@ -128,15 +148,15 @@ class MainHandler(webapp.RequestHandler):
     qry = db.GqlQuery('SELECT * FROM HNquantiles ORDER BY etime DESC limit 2');
     results = qry.fetch(2)
     if len(results) > 1:
-      raw_data.append({'col1':'pr1','col2':results[1].quant1})
-      raw_data.append({'col1':'pr2','col2':results[1].quant2})
-      raw_data.append({'col1':'pr3','col2':results[1].quant3})
-      raw_data.append({'col1':'pr4','col2':results[1].quant4})
+      html_data.append({'col1':'quant1','col2':results[1].quant1})
+      html_data.append({'col1':'quant2','col2':results[1].quant2})
+      html_data.append({'col1':'quant3','col2':results[1].quant3})
+      html_data.append({'col1':'max','col2':results[1].max_pickup})
 ## -------------------------------
 ## -- all we did is printed in a table
 ## -- not neccessary but good for debugging
     path = os.path.join(os.path.dirname(__file__), '2-dm_do.tmpl')
-    self.response.out.write(template.render(path,{'results':raw_data}))
+    self.response.out.write(template.render(path,{'results':html_data}))
 
 def main():
     application = webapp.WSGIApplication([('/dm_process', MainHandler)], debug=True)

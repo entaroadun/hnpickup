@@ -28,7 +28,7 @@ class HNtime(db.Model):
   etime = db.IntegerProperty()
   time_new = db.FloatProperty()
   time_best = db.FloatProperty()
-  time_diff = db.FloatProperty()
+  pickup_ratio = db.FloatProperty()
 
 ## =================================
 ## == sometimes we want to get the
@@ -63,7 +63,7 @@ class MainHandler(webapp.RequestHandler):
       if i < len(results):
         data_best.append([int(results[i].etime),float(results[i].time_best)])
         data_new.append([int(results[i].etime),float(results[i].time_new)])
-        pickup_ratio.append([int(results[i].etime),float(results[i].time_diff)]) ## the difference tells us if it's good time or not 
+        pickup_ratio.append([int(results[i].etime),float(results[i].pickup_ratio)]) ## the difference tells us if it's good time or not 
 ## --  plugin the data into a tamplate variable
     template_values = {
       'data_best': data_best,
@@ -73,11 +73,9 @@ class MainHandler(webapp.RequestHandler):
     path = os.path.join(os.path.dirname(__file__), '1-etl_view.tmpl')
     self.response.out.write(template.render(path, template_values))
 
-
 def main():
     application = webapp.WSGIApplication([('/etl.json', MainHandler)], debug=True)
     util.run_wsgi_app(application)
-
 
 if __name__ == '__main__':
     main()

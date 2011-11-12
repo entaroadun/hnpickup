@@ -11,6 +11,8 @@
 # Google App Engine CRON job will run this page
 # user will not have access to it
 # app.yaml and cron.yaml define access to this page
+# If you have very intensive ETL then is should go
+# to the backend
 #
 
 import os
@@ -45,7 +47,7 @@ class HNtime(db.Model):
   etime = db.IntegerProperty()
   time_best = db.FloatProperty()
   time_new = db.FloatProperty()
-  time_diff = db.FloatProperty()
+  pickup_ratio = db.FloatProperty()
 
 ## =================================
 ## == Web page that does all the ETL
@@ -58,7 +60,7 @@ class HNtime(db.Model):
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    raw_data = [];
+    html_data = [];
 ## ---------------------------
 ## -- ETL Source 1: 
 ## -- N-point average of oldest pages
@@ -76,7 +78,7 @@ class MainHandler(webapp.RequestHandler):
         else:
           tmp_time = int(m.group(1))
         data_new.append(tmp_time)
-        raw_data.append({'col1':'newest','col2':m.group(1),'col3':m.group(2)})
+        html_data.append({'col1':'newest','col2':m.group(1),'col3':m.group(2)})
       data_new.sort(reverse=True)
       data_new_num = 0
       data_new_den = 0
@@ -102,7 +104,7 @@ class MainHandler(webapp.RequestHandler):
         else:
           tmp_time = int(m.group(1))
         data_best.append(tmp_time)
-        raw_data.append({'col1':'news','col2':m.group(1),'col3':m.group(2)});
+        html_data.append({'col1':'news','col2':m.group(1),'col3':m.group(2)});
       data_best.sort()  
       data_best_num = 0
       data_best_den = 0
@@ -117,13 +119,13 @@ class MainHandler(webapp.RequestHandler):
 ## -- put it in a database
     if data_new_time and data_best_time:
       etime_now = int(time.time()*1000)
-      hntime = HNtime(etime=etime_now,time_best=data_best_time,time_new=data_new_time,time_diff=data_best_time-data_new_time)
+      hntime = HNtime(etime=etime_now,time_best=data_best_time,time_new=data_new_time,pickup_ratio=data_new_time/data_best_time)
       hntime.put()
-      raw_data.append({'col1':'timestamp','col2':'newest','col3':'news'})
-      raw_data.append({'col1':etime_now,'col2':data_new_time,'col3':data_best_time})
-      raw_data.append({'col1':'lenghts','col2':len(data_new),'col3':len(data_best)})
-      raw_data.append({'col1':'denominators','col2':data_new_den,'col3':data_best_den})
-      raw_data.append({'col1':'numerators','col2':data_new_num,'col3':data_best_num})
+      html_data.append({'col1':'timestamp','col2':'newest','col3':'news'})
+      html_data.append({'col1':etime_now,'col2':data_new_time,'col3':data_best_time})
+      html_data.append({'col1':'lenghts','col2':len(data_new),'col3':len(data_best)})
+      html_data.append({'col1':'denominators','col2':data_new_den,'col3':data_best_den})
+      html_data.append({'col1':'numerators','col2':data_new_num,'col3':data_best_num})
 ## ---------------------------
 ## -- we can double check if the
 ## -- results went to the DB
@@ -132,13 +134,13 @@ class MainHandler(webapp.RequestHandler):
     qry = db.GqlQuery('SELECT * FROM HNtime ORDER BY etime DESC limit 2');
     results = qry.fetch(2)
     if len(results) > 1:
-      raw_data.append({'col1':results[1].etime,'col2':results[1].time_new,'col3':results[1].time_best})
+      html_data.append({'col1':results[1].etime,'col2':results[1].time_new,'col3':results[1].time_best})
 ## ---------------------------
 ## -- finally print the report
 ## -- not really needed 
 ## -- mostly for debugging 
     path = os.path.join(os.path.dirname(__file__), '1-etl_do.tmpl')
-    self.response.out.write(template.render(path,{'results':raw_data}))
+    self.response.out.write(template.render(path,{'results':html_data}))
 
 def main():
     application = webapp.WSGIApplication([('/etl_process', MainHandler)], debug=True)

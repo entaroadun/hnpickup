@@ -1,6 +1,6 @@
 [
   {% for data in data_quantiles %}
-     { "etime": {{ data.etime }}, "quant1": {{ data.quant1 }}, "quant2": {{ data.quant2 }}, "quant3": {{ data.quant3 }}, "quant4": {{ data.quant4 }} }
+     { "etime": {{ data.etime }}, "quant1": {{ data.quant1 }}, "quant2": {{ data.quant2 }}, "quant3": {{ data.quant3 }}, "max_best": {{ data.max_best }}, "max_new": {{ data.max_new }}, "max_pickup": {{ data.max_pickup }} }
      {% if not forloop.last %} 
      , 
      {% endif %}

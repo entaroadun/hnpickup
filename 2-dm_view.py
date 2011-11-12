@@ -33,7 +33,9 @@ class HNquantiles(db.Model):
   quant1 = db.FloatProperty()
   quant2 = db.FloatProperty()
   quant3 = db.FloatProperty()
-  quant4 = db.FloatProperty()
+  max_best = db.FloatProperty()
+  max_new = db.FloatProperty()
+  max_pickup = db.FloatProperty()
 
 ## =================================
 ## == sometimes we want to get the
@@ -46,7 +48,6 @@ class HNquantiles(db.Model):
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    data_quantiles = [];
     str_ndata_elements = self.request.get('ndata_elements')
     ndata_elements = 1 ## most current percentiles
 ## ------------------------
@@ -61,9 +62,7 @@ class MainHandler(webapp.RequestHandler):
 ## -- the data and feed it into
 ## -- json template
     qry = db.GqlQuery('SELECT * FROM HNquantiles ORDER BY etime DESC limit '+str(ndata_elements));
-    results = qry.fetch(ndata_elements)
-    for result in results:
-      data_quantiles.append({'etime':int(result.etime),'quant1':float(result.quant1),'quant2':float(result.quant2),'quant3':float(result.quant3),'quant4':float(result.quant4)})
+    data_quantiles = qry.fetch(ndata_elements)
 ## --  plugin the data into a tamplate variable
     template_values = {
       'data_quantiles': data_quantiles,

@@ -43,9 +43,8 @@ $(function () {
          points: { show: false },
          xaxis: { ticks: 8, tickFormatter: function (val, axis) { var d = new Date(val); return checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()); } },
          yaxes: [
-           { position: "left", tickDecimals: 0, tickSize: 0, min: 0 },
-           { position: "left", tickDecimals: 0, tickSize: 0, min: 0 },
-           { position: "right", tickDecimals: 0, tickSize: 0, min: 0, max: QUANTILES.quant4 }
+           { position: "left", tickDecimals: 0, tickSize: 0, min: 0, max: QUANTILES.max_best },
+           { position: "right", tickDecimals: 3, tickSize: 0, min: 0, max: QUANTILES.max_pickup }
          ],
          legend: { position: 'sw', backgroundColor: '#E5E1DE', backgroundOpacity: 0.60 }
       };
@@ -77,11 +76,11 @@ $(function () {
        // The graph is just for shows.
        data_length = series[0].data.length - 1;
        timing_diff = series[2].data[data_length][1];
-       if ( timing_diff < QUANTILES.quant1 ) {
+       if ( timing_diff > QUANTILES.quant1 ) {
          timing_suggestion = 'very good' 
-       } else if ( timing_diff < QUANTILES.quant2 ) {
+       } else if ( timing_diff > QUANTILES.quant2 ) {
          timing_suggestion = 'good' 
-       } else if ( timing_diff < QUANTILES.quant3 ) {
+       } else if ( timing_diff > QUANTILES.quant3 ) {
          timing_suggestion = 'so-so' 
        } else {
          timing_suggestion = 'bad'
