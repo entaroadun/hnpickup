@@ -1,17 +1,5 @@
 [
 { 
-  "label": "Newest best stories", 
-  "data": [
-  {% for data in data_best %}
-     {{ data }} 
-     {% if not forloop.last %} 
-     , 
-     {% endif %}
-  {% endfor %}
-  ],
-  "yaxis": 1
-},
-{ 
   "label": "Oldest new stories", 
   "data": [
   {% for data in data_new %}
@@ -21,6 +9,18 @@
      {% endif %}
   {% endfor %}
   ], 
+  "yaxis": 1
+},
+{ 
+  "label": "Newest best stories", 
+  "data": [
+  {% for data in data_best %}
+     {{ data }} 
+     {% if not forloop.last %} 
+     , 
+     {% endif %}
+  {% endfor %}
+  ],
   "yaxis": 1
 },
 {
