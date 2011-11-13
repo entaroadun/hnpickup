@@ -1,6 +1,8 @@
 <html>
   <head>
     <title>Hacker News Story Pickup Rate</title>
+    <meta name="description" content="When is good time to post on Hacker News? Use Pickup Ratio Recommendation System." />
+    <meta name="viewport" content="initial-scale=0.6" />
     <link type="text/css" rel="stylesheet" href="/css/main.css" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <script language="javascript" type="text/javascript" src="/js/flot/jquery.js"></script>
@@ -18,7 +20,7 @@
        })();
     </script>
   </head>
-  <body>
+  <body onorientationchange="updateOrientation();">
   <div id='main'>
     <h4 id='title'>Hacker News Story Pickup Rate</h4>
     <div id='flip'>

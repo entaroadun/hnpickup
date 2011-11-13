@@ -1,6 +1,7 @@
 cron:
-- description: HN timing extraction report
+- description: HN timing extractions
   url: /etl_process
+  target: etl
   schedule: every 15 minutes
 - description: HN timing quantiles calculations
   url: /dm_process

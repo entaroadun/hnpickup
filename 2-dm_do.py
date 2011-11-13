@@ -18,6 +18,9 @@
 # In order to have a script running in backend persistant
 # machine we need to define entries in:
 # backends.yamp, app.yaml, and cron.yaml
+# 
+# Remember to deploy backend manually:
+# appcfg.py backends <dir> update
 #
 
 import os

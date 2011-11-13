@@ -9,10 +9,16 @@
 # exact time but we can just approximate
 # 
 # Google App Engine CRON job will run this page
-# user will not have access to it
+# user will not have access to it.
+# Google App Engine has backends for that kind of work.
 # app.yaml and cron.yaml define access to this page
-# If you have very intensive ETL then is should go
-# to the backend
+#
+# If you have intensive ETL then is should go
+# to the backend if not you can run it on the frontend.
+# Look in cron.yaml file for "target: xxx" entries
+# 
+# Remember to deploy backend manually:
+# appcfg.py backends <dir> update
 #
 
 import os
@@ -65,6 +71,8 @@ class MainHandler(webapp.RequestHandler):
 ## -- ETL Source 1: 
 ## -- N-point average of oldest pages
 ## -- simple regular expression extraction
+## -- (a much better way is to use web APIs)
+## -- (look for web API here http://www.programmableweb.com/)
     data_new = [];
     data_new_time = float(0);
     result = urlfetch.fetch(url='https://news.ycombinator.com/newest',deadline=60)
@@ -91,6 +99,8 @@ class MainHandler(webapp.RequestHandler):
 ## -- ETL Source 2: 
 ## -- 15-point avarege of newst pages
 ## -- simple regular expression extraction
+## -- (a much better way is to use web APIs)
+## -- (look for web API here http://www.programmableweb.com/)
     data_best = [];
     data_best_time = float(0);
     result = urlfetch.fetch(url='https://news.ycombinator.com/news',deadline=60)

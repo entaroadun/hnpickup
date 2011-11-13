@@ -45,7 +45,7 @@ class MainHandler(webapp.RequestHandler):
     data_new = [];
     pickup_ratio = [];
     str_ndata_elements = self.request.get('ndata_elements')
-    ndata_elements = 96 ## this is equal to full 24h = 96 * 15 min
+    ndata_elements = 100 ## this is equal to 25h = 25 * 4 * 15 min
 ## ------------------------
 ## -- remeber to cleanup user
 ## -- input, some one might

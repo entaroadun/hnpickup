@@ -3,3 +3,7 @@ backends:
   class: B1
   instances: 1
   options: dynamic
+- name: etl
+  class: B1
+  instances: 1
+  options: dynamic

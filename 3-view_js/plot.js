@@ -103,6 +103,8 @@ $(function () {
   // run all function
   // when the html is ready
   $(document).ready(function() {
+    // iOS compatibility
+    updateOrientation();
     // initialize quantile
     // and graph data
     fetchAllData();
@@ -111,3 +113,19 @@ $(function () {
     $('#flip').quickFlip({ctaSelector:'.cta'});
   });
 });
+// Simple iOS compatibility
+// so that graph fits on the screen
+function updateOrientation() {
+  if ( typeof window.orientation != 'undefined' ) {
+    var metas = document.getElementsByTagName("meta");
+    for (i=0; i<metas.length; i++) {
+      if (metas[i].name == "viewport") {
+	if ( window.orientation == 0 || window.orientation == 180 ) {
+	  metas[i].content = "initial-scale=0.6";
+	} else {
+	  metas[i].content = "initial-scale=0.9";
+	}
+      }
+    }
+  }
+}

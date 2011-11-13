@@ -1,3 +1,23 @@
+## =============================
+## == START
+## =============================
+
+Create an account and new app placeholder at:
+
+http://appengine.google.com/
+
+Please install Google App Engine SDK from:
+
+http://code.google.com/appengine/downloads.html
+
+Getting started with Python web app development is here:
+
+http://code.google.com/appengine/docs/python/gettingstarted/
+
+For lunching the app you can use this nice GUI:
+
+http://code.google.com/p/google-appengine-mac-launcher/
+http://code.google.com/p/google-appengine-wx-launcher/
 
 ## =============================
 ## == INTRO
