@@ -1,4 +1,7 @@
 cron:
+# ETL process will be run on both frontend and backend
+# (it runs on backend just three hours - you will know
+# the usage of backend and frontend from google app engine web UI)
 - description: HN timing extractions at the backend
   url: /etl_process
   target: etl
@@ -6,7 +9,9 @@ cron:
 - description: HN timing extractions at a frontend
   url: /etl_process
   schedule: every 15 minutes from 03:00 to 23:59
+# DM is run at the backend
 - description: HN timing quantiles calculations at the backend
   url: /dm_process
   target: datamining
   schedule: every 2 hours
+

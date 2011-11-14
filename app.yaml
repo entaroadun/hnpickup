@@ -3,6 +3,10 @@ version: 4
 runtime: python
 api_version: 1
 
+# this files defined all our
+# routes, backends use same routes
+# as frontends
+
 handlers:
 - url: /etl_process
   script: 1-etl_do.py
@@ -29,3 +33,4 @@ handlers:
   static_dir: 3-view_js 
 - url: .*
   script: 3-view_do.py
+
