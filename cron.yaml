@@ -1,9 +1,12 @@
 cron:
-- description: HN timing extractions
+- description: HN timing extractions at the backend
   url: /etl_process
   target: etl
-  schedule: every 15 minutes
-- description: HN timing quantiles calculations
+  schedule: every 15 minutes from 00:00 to 02:59
+- description: HN timing extractions at a frontend
+  url: /etl_process
+  schedule: every 15 minutes from 03:00 to 23:59
+- description: HN timing quantiles calculations at the backend
   url: /dm_process
   target: datamining
   schedule: every 2 hours
