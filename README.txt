@@ -26,7 +26,7 @@ http://code.google.com/p/google-appengine-wx-launcher/
 This is example of a simple data mining application.
 Here, HN aggregator is our source of data. The data
 mining objective is to figure out when is good time
-to post an article, i.e., story.
+to post an article or a story.
 
 ## =============================
 ## == MODEL
