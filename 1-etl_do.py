@@ -2,11 +2,13 @@
 #
 # Data Mining starts with collecting
 # the right data. Here we mine the average
-# time of newest articles on HN "news" web page
-# and oldest articles on HN "newest" web page
-# if "newest" articles get to the "news" page
-# then it's good time to submit. We don't knwo this
-# exact time but we can just approximate
+# score of the worst articles on HN "news" web page
+# and the best scored articles on HN "newest" web page
+# if we would know that "newest" articles can get to the 
+# "news" page then it's good time to submit. We can 
+# approximate this by waiting until lowest articles on the
+# first page have similar scoring pattern then articles on
+# the "newest" page.
 # 
 # Google App Engine CRON job will run this page
 # user will not have access to it.
@@ -39,7 +41,7 @@ from google.appengine.ext.webapp import template
 ## == to summarize dynamics of HN
 ## =================================
 
-N_POINT_AVERAGE = 10
+N_POINT_AVERAGE = 6
 
 ## =================================
 ## === ETL data table, very simple,
@@ -49,10 +51,10 @@ N_POINT_AVERAGE = 10
 ## === two web pages every ~ 15 min
 ## =================================
 
-class HNtime(db.Model):
+class HNscore(db.Model):
   etime = db.IntegerProperty()
-  time_best = db.FloatProperty()
-  time_new = db.FloatProperty()
+  score_best = db.FloatProperty()
+  score_new = db.FloatProperty()
   pickup_ratio = db.FloatProperty()
 
 ## =================================
@@ -69,70 +71,60 @@ class MainHandler(webapp.RequestHandler):
     html_data = [];
 ## ---------------------------
 ## -- ETL Source 1: 
-## -- N-point average of oldest pages
+## -- N-point average of highest score submissions
 ## -- simple regular expression extraction
 ## -- (a much better way is to use web APIs)
 ## -- (look for web API here http://www.programmableweb.com/)
     data_new = [];
-    data_new_time = float(0);
+    data_new_score = float(0);
     result = urlfetch.fetch(url='https://news.ycombinator.com/newest',deadline=60)
     if result.status_code == 200:
       txt_data = result.content
-      for m in re.finditer(r"(\d+) (minutes?|hours?) ago",txt_data):
-        if m.group(2) == 'hour' or m.group(2) == 'hours':
-          tmp_time = int(m.group(1)) * 60
-        elif m.group(2) == 'day' or m.group(2) == 'days': 
-          tmp_time = int(m.group(1)) * 1440
-        else:
-          tmp_time = int(m.group(1))
-        data_new.append(tmp_time)
+      for m in re.finditer(r"(\d+) points?</span> by (.+?) (\d+) (minutes?|hours?|days?) ago",txt_data):
+        data_new.append(int(m.group(1)))
         html_data.append({'col1':'newest','col2':m.group(1),'col3':m.group(2)})
       data_new.sort(reverse=True)
       data_new_num = 0
       data_new_den = 0
-      for i in range(0,N_POINT_AVERAGE):
-        data_new_num += data_new[i]
-        data_new_den += 1
+      if len(data_new) >= N_POINT_AVERAGE:
+        for i in range(0,N_POINT_AVERAGE):
+          data_new_num += data_new[i]
+          data_new_den += 1
       if data_new_den: 
-        data_new_time = float(data_new_num)/float(data_new_den)  
+        data_new_score = float(data_new_num)/float(data_new_den)  
 ## ---------------------------
 ## -- ETL Source 2: 
-## -- 15-point avarege of newst pages
+## -- N-point avarege of lowest score submissions
 ## -- simple regular expression extraction
 ## -- (a much better way is to use web APIs)
 ## -- (look for web API here http://www.programmableweb.com/)
     data_best = [];
-    data_best_time = float(0);
+    data_best_score = float(0);
     result = urlfetch.fetch(url='https://news.ycombinator.com/news',deadline=60)
     if result.status_code == 200:
       txt_data = result.content
-      for m in re.finditer(r"(\d+) (minutes?|hours?|days?) ago",txt_data):
-        if m.group(2) == 'hour' or m.group(2) == 'hours':
-          tmp_time = int(m.group(1)) * 60
-        elif m.group(2) == 'day' or m.group(2) == 'days': 
-          tmp_time = int(m.group(1)) * 1440
-        else:
-          tmp_time = int(m.group(1))
-        data_best.append(tmp_time)
+      for m in re.finditer(r"(\d+) points?</span> by (.+?) (\d+) (minutes?|hours?|days?) ago",txt_data):
+        data_best.append(int(m.group(1)))
         html_data.append({'col1':'news','col2':m.group(1),'col3':m.group(2)});
       data_best.sort()  
       data_best_num = 0
       data_best_den = 0
-      for i in range(0,N_POINT_AVERAGE):
-        data_best_num += data_best[i]
-        data_best_den += 1
+      if len(data_best) >= N_POINT_AVERAGE:
+        for i in range(0,N_POINT_AVERAGE):
+          data_best_num += data_best[i]
+          data_best_den += 1
       if data_best_den: 
-        data_best_time = float(data_best_num)/float(data_best_den)  
+        data_best_score = float(data_best_num)/float(data_best_den)  
 ## ---------------------------
 ## -- if we have results from
 ## -- both sources then lets 
 ## -- put it in a database
-    if data_new_time and data_best_time:
+    if data_new_score and data_best_score:
       etime_now = int(time.time()*1000)
-      hntime = HNtime(etime=etime_now,time_best=data_best_time,time_new=data_new_time,pickup_ratio=data_new_time/data_best_time)
+      hntime = HNscore(etime=etime_now,score_best=data_best_score,score_new=data_new_score,pickup_ratio=data_new_score/data_best_score)
       hntime.put()
       html_data.append({'col1':'timestamp','col2':'newest','col3':'news'})
-      html_data.append({'col1':etime_now,'col2':data_new_time,'col3':data_best_time})
+      html_data.append({'col1':etime_now,'col2':data_new_score,'col3':data_best_score})
       html_data.append({'col1':'lenghts','col2':len(data_new),'col3':len(data_best)})
       html_data.append({'col1':'denominators','col2':data_new_den,'col3':data_best_den})
       html_data.append({'col1':'numerators','col2':data_new_num,'col3':data_best_num})
@@ -141,10 +133,10 @@ class MainHandler(webapp.RequestHandler):
 ## -- results went to the DB
 ## -- but we will do it by looking
 ## -- at second last (previous) entry
-    qry = db.GqlQuery('SELECT * FROM HNtime ORDER BY etime DESC limit 2');
+    qry = db.GqlQuery('SELECT * FROM HNscore ORDER BY etime DESC limit 2');
     results = qry.fetch(2)
     if len(results) > 1:
-      html_data.append({'col1':results[1].etime,'col2':results[1].time_new,'col3':results[1].time_best})
+      html_data.append({'col1':results[1].etime,'col2':results[1].score_new,'col3':results[1].score_best})
 ## ---------------------------
 ## -- finally print the report
 ## -- not really needed 

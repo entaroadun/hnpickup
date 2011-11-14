@@ -47,6 +47,12 @@ ul, li {
 ul li:before {
   content: "\00BB \0020";
 }
+#error {
+  margin: 40px;
+  padding: 40px;
+  color: #807B77;
+  font-size: 2.5em;
+}
 #back {
   margin: 0;
   padding: 0;

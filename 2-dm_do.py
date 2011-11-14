@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 #
 # This is very simple data mining case.
-# If the "newest best articles" are very new compared
-# "oldest new articles" then we suspect it's
+# If the "worst best articles" are very new compared
+# "best new articles" then we suspect it's
 # good time to publish your link: 
 #
-# pickup_ratio = time_new/time_best
+# pickup_ratio = score_new/score_best
 #
-# good_time = newsest_are_old/news_are_new
+# good_time = newsest_are_scored_high/news_are_scored_low
 #
 # Quantiles are perfect for quantifying random variables.
 # We want to create four intervals when it is good to
@@ -52,10 +52,10 @@ QUANTILE_SO_SO = 0.7
 ## === two web pages every ~ 15 min
 ## =================================
 
-class HNtime(db.Model):
+class HNscore(db.Model):
   etime = db.IntegerProperty()
-  time_best = db.FloatProperty()
-  time_new = db.FloatProperty()
+  score_best = db.FloatProperty()
+  score_new = db.FloatProperty()
   pickup_ratio = db.FloatProperty()
 
 ## =================================
@@ -113,14 +113,14 @@ def percentile(N, percent, key=lambda x:x):
 class MainHandler(webapp.RequestHandler):
   def get(self):
     html_data = [];
-    time_best = [];
-    time_new = [];
+    score_best = [];
+    score_new = [];
     pickup_ratio = [];
-    qry = db.GqlQuery('SELECT * FROM HNtime')
-    results = qry.fetch(999)
+    qry = db.GqlQuery('SELECT * FROM HNscore ORDER BY etime DESC')
+    results = qry.fetch(1000)
     for result in results:
-      time_best.append(result.time_best)
-      time_new.append(result.time_new)
+      score_best.append(result.score_best)
+      score_new.append(result.score_new)
       pickup_ratio.append(result.pickup_ratio)
       html_data.append({'col1':result.etime,'col2':result.pickup_ratio})
 ## -------------------------------
@@ -132,8 +132,8 @@ class MainHandler(webapp.RequestHandler):
     quant1 = percentile(pickup_ratio,QUANTILE_VERY_GOOD)
     quant2 = percentile(pickup_ratio,QUANTILE_GOOD)
     quant3 = percentile(pickup_ratio,QUANTILE_SO_SO)
-    max_best = max(time_best)
-    max_new = max(time_new)
+    max_best = max(score_best)
+    max_new = max(score_new)
     max_pickup = max(pickup_ratio)
     html_data.append({'col1':'quant1','col2':quant1})
     html_data.append({'col1':'quant2','col2':quant2})

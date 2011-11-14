@@ -24,10 +24,10 @@ from google.appengine.ext import db
 ## === two web pages every ~ 15 min
 ## =================================
 
-class HNtime(db.Model):
+class HNscore(db.Model):
   etime = db.IntegerProperty()
-  time_new = db.FloatProperty()
-  time_best = db.FloatProperty()
+  score_new = db.FloatProperty()
+  score_best = db.FloatProperty()
   pickup_ratio = db.FloatProperty()
 
 ## =================================
@@ -57,12 +57,12 @@ class MainHandler(webapp.RequestHandler):
 ## -- now we are ready to get 
 ## -- the data and feed it into
 ## -- a json template
-    qry = db.GqlQuery('SELECT * FROM HNtime ORDER BY etime DESC limit '+str(ndata_elements));
+    qry = db.GqlQuery('SELECT * FROM HNscore ORDER BY etime DESC limit '+str(ndata_elements));
     results = qry.fetch(ndata_elements)
     for i in range(ndata_elements-1,-1,-1): ## reverse the data, i think "reverse" function takes a lot of cpu
       if i < len(results):
-        data_best.append([int(results[i].etime),float(results[i].time_best)])
-        data_new.append([int(results[i].etime),float(results[i].time_new)])
+        data_best.append([int(results[i].etime),float(results[i].score_best)])
+        data_new.append([int(results[i].etime),float(results[i].score_new)])
         pickup_ratio.append([int(results[i].etime),float(results[i].pickup_ratio)]) ## the difference tells us if it's good time or not 
 ## --  plugin the data into a tamplate variable
     template_values = {

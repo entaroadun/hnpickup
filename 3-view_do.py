@@ -28,9 +28,14 @@ class MainHandler(webapp.RequestHandler):
     path = os.path.join(os.path.dirname(__file__), '3-view_do.tmpl')
     self.response.out.write(template.render(path,{}))
 
+class ErrorHandler(webapp.RequestHandler):
+  def get(self):
+    path = os.path.join(os.path.dirname(__file__), '3-view_err.tmpl')
+    self.response.set_status(404)
+    self.response.out.write(template.render(path,{'path':self.request.path}))
 
 def main():
-    application = webapp.WSGIApplication([('/*.*', MainHandler)], debug=True)
+    application = webapp.WSGIApplication([('/', MainHandler),('/.*',ErrorHandler)], debug=True)
     util.run_wsgi_app(application)
 
 
