@@ -3,12 +3,14 @@
     <title>Hacker News Story Pickup Rate</title>
     <meta name="description" content="When is good time to post on Hacker News? Use Pickup Ratio Recommendation System." />
     <meta name="viewport" content="initial-scale=0.6" />
+    <link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.8.16.custom.css" />
     <link type="text/css" rel="stylesheet" href="/css/main.css" />
     <link rel="shortcut icon" href="/favicon.ico" />
-    <script language="javascript" type="text/javascript" src="/js/flot/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/jquery/jquery-1.7.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
     <script language="javascript" type="text/javascript" src="/js/flot/jquery.flot.js"></script>
     <script language="javascript" type="text/javascript" src="/js/quickflip/jquery.quickflip.min.js"></script>
-    <script language="javascript" type="text/javascript" src="/js/plot.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/visualize.js"></script>
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-26837634-1']);
@@ -26,11 +28,16 @@
     <div id='flip'>
       <div id='grapher'>
         <div id='graph' class='cta'>
-	  Data is not available. Please wait.
+	  <div id='trim'></div>
+	  <div id='smooth'></div>
+	  <div id='plot'>
+	    Data is not available. Please wait.
+	  </div>  
 	</div>
       </div>
       <div id='helper'>
         <div id='help' class='cta'>
+	  Definitions:
 	  <ul>
 	    <li><b>Highest new stories</b> - is an average of 5 highest ranked stories on the HN <b>newest</b> page; indirectly, it measures how many new competing stories there are or how many "submitters" are currently submitting. </li>
 	    <li><b>Lowest best stories</b> - is an average of 5 lowest ranked stories on the HN <b>news</b> page; indirectly, it measures how many fresh stories there are or how many "up-voters" are currently upvoting. </li>

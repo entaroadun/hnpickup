@@ -22,6 +22,42 @@ $(function () {
   var QUANTILES = {};
   // Global graph options
   var OPTIONS = {};
+  // Global graph data
+  var SERIES = {};
+  // Global data smoothing parameter
+  var SMOOTH = 0;
+  var MAX_SMOOTH = 5;
+  // Global data trimming parameter
+  var TRIM = 0;
+  // ====================================
+  // We want to make the data look good
+  // and enable to see trends if the exist
+  // (just for exploratory purposes)
+  function smoothAndTrimSeries (series, smooth, trim) {
+    var series = jQuery.extend(true, [], series);
+    data_length = series[0].data.length - 1;
+    n_series = series.length - 1;
+    // Smoothing average window
+    for (var i=smooth; i<=data_length; i++) {
+      for (var j=1; j<=smooth; j++) {
+	for (var k=0; k<=n_series; k++) {
+	  series[k].data[i][1] += series[k].data[i-j][1];
+	}
+      }
+      for (var k=0; k<=n_series; k++) {
+	series[k].data[i][1] /= smooth+1;
+      }
+    }
+    // Trim can be used for zooming
+    // Trim at least the smoothing part
+    trim += smooth;
+    for (var k=0; k<=n_series; k++) {
+      for (var i=1; i<=trim; i++) {
+	series[k].data.shift();
+      }
+    }
+    return series;
+  }
   // ====================================
   // Here you might get headache
   // We need to do two ajax queries:
@@ -69,13 +105,13 @@ $(function () {
      // massage the data into a graph
      // once it's fetched from the server
      function onDataReceived(series) {
-       $.plot($('#graph'),series,OPTIONS);
        // Use latest data + plus precomputed quantiles
        // to make actual recommendation.
        // This is most important part of the DM process.
        // The graph is just for shows.
-       data_length = series[0].data.length - 1;
-       timing_diff = series[2].data[data_length][1];
+       SERIES = series;
+       data_length = SERIES[0].data.length - 1;
+       timing_diff = SERIES[2].data[data_length][1];
        if ( timing_diff > QUANTILES.quant1 ) {
          timing_suggestion = 'very good' 
        } else if ( timing_diff > QUANTILES.quant2 ) {
@@ -87,6 +123,11 @@ $(function () {
        }
        // Update HTML with the recommendation
        $('#timing').text(timing_suggestion);
+       // Plot the graph
+       $.plot($('#plot'),smoothAndTrimSeries(SERIES,SMOOTH,TRIM),OPTIONS);
+       // Create sliders
+       $('#smooth').slider({min:0,max:MAX_SMOOTH,orientation:'vertical',value:SMOOTH,range:'min',slide:function(e,ui){SMOOTH=ui.value; $.plot($('#plot'),smoothAndTrimSeries(SERIES,SMOOTH,TRIM),OPTIONS);}});
+       $('#trim').slider({min:0,max:data_length-MAX_SMOOTH-1,orientation:'horizontal',range:'min',slide:function(e,ui){TRIM=ui.value; $.plot($('#plot'),smoothAndTrimSeries(SERIES,SMOOTH,TRIM),OPTIONS);}});
      }
      // jQuery ajax call
      // pass number of needed data elements 
@@ -113,17 +154,18 @@ $(function () {
     $('#flip').quickFlip({ctaSelector:'.cta'});
   });
 });
+// ====================================
 // Simple iOS compatibility
 // so that graph fits on the screen
 function updateOrientation() {
   if ( typeof window.orientation != 'undefined' ) {
-    var metas = document.getElementsByTagName("meta");
+    var metas = document.getElementsByTagName('meta');
     for (i=0; i<metas.length; i++) {
-      if (metas[i].name == "viewport") {
+      if (metas[i].name == 'viewport') {
 	if ( window.orientation == 0 || window.orientation == 180 ) {
-	  metas[i].content = "initial-scale=0.6";
+	  metas[i].content = 'initial-scale=0.6';
 	} else {
-	  metas[i].content = "initial-scale=0.9";
+	  metas[i].content = 'initial-scale=0.9';
 	}
       }
     }

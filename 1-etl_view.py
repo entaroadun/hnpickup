@@ -45,14 +45,18 @@ class MainHandler(webapp.RequestHandler):
     data_new = [];
     pickup_ratio = [];
     str_ndata_elements = self.request.get('ndata_elements')
-    ndata_elements = 100 ## this is equal to 25h = 25 * 4 * 15 min
+    ndata_elements = 192 ## this is equal to 2d = 2 * 24 * 4 * 15 min
 ## ------------------------
 ## -- remeber to cleanup user
 ## -- input, some one might
 ## -- hack your app
     str_ndata_elements = re.sub('\D+','',str_ndata_elements);
-    if len(str_ndata_elements) > 0 and int(str_ndata_elements) > 2 and int(str_ndata_elements) <= 1000:
-      ndata_elements = int(str_ndata_elements);
+    if len(str_ndata_elements) > 0 and int(str_ndata_elements) <= 1000:
+## -- if MAX_SMOOTH = 5 then minimum number of data points is 7
+      if int(str_ndata_elements) < 7:
+	ndata_elements = 7
+      else:
+        ndata_elements = int(str_ndata_elements);
 ## ---------------------------
 ## -- now we are ready to get 
 ## -- the data and feed it into
