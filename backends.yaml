@@ -3,7 +3,7 @@ backends:
 # machines: one for ETL, the other for DM
 # (you can view your machines in the google
 # app engine web UI)
-- name: datamining
+- name: dm
   class: B1
   instances: 1
   options: dynamic

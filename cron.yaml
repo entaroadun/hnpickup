@@ -12,6 +12,6 @@ cron:
 # DM is run at the backend
 - description: HN timing quantiles calculations at the backend
   url: /dm_process
-  target: datamining
+  target: dm
   schedule: every 2 hours
 
