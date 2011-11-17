@@ -9,28 +9,28 @@ api_version: 1
 
 handlers:
 - url: /etl_process
-  script: 1-etl_do.py
+  script: 1.etl/1-etl_do.py
   login: admin
 - url: /etl.json
-  script: 1-etl_view.py
+  script: 1.etl/1-etl_view.py
 - url: /dm_process
-  script: 2-dm_do.py
+  script: 2.dm/2-dm_do.py
   login: admin
 - url: /dm.json
-  script: 2-dm_view.py
+  script: 2.dm/2-dm_view.py
 - url: /favicon\.ico
-  static_files: 3-view_favicon.ico
+  static_files: 3.visualization/3-view_favicon.ico
   upload: 3-view_favicon.ico
 - url: /apple-touch-icon\.png
-  static_files: 3-view_apple-touch-icon.png
-  upload: 3-view_apple-touch-icon.png
+  static_files: 3.visualization/3-view_apple-touch-icon.png
+  upload: 3.visualization/3-view_apple-touch-icon.png
 - url: /robots\.txt
-  static_files: 3-view_robots.txt
+  static_files: 3.visualization/3-view_robots.txt
   upload: 3-view_robots.txt
 - url: /css
-  static_dir: 3-view_css 
+  static_dir: 3.visualization/3-view_css 
 - url: /js
-  static_dir: 3-view_js 
+  static_dir: 3.visualization/3-view_js 
 - url: /.*
-  script: 3-view_do.py
+  script: 3.visualization/3-view_do.py
 

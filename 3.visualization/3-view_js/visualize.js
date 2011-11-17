@@ -155,7 +155,7 @@ $(function () {
   });
 });
 // ====================================
-// Simple iOS compatibility
+// Simple iOS compatibility:
 // so that graph fits on the screen
 function updateOrientation() {
   if ( typeof window.orientation != 'undefined' ) {
@@ -171,3 +171,10 @@ function updateOrientation() {
     }
   }
 }
+// ====================================
+// Simple iOS compatibility:
+// prevent from sliding the whole window
+document.ontouchmove = function(event){
+  event.preventDefault();
+}
+
