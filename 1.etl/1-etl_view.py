@@ -17,6 +17,20 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
 from google.appengine.ext import db
 
+## ##################################
+## In order to get the data into R,
+## you need to write following:
+##
+## library(rjson);
+## dat <- fromJSON(file='http://hnpickup.appspot.com/etl.json?ndata_elements=999');
+## score_new <- sapply(x[[1]][['data']],function(x){x[2]})
+## score_best <- sapply(x[[2]][['data']],function(x){x[2]})
+## pickup_ratio <- sapply(x[[3]][['data']],function(x){x[2]})
+## 
+## plot(score_new,score_best,lwd=2);
+##
+## ##################################
+
 ## =================================
 ## === ETL data table, very simple,
 ## === it holds just three values
