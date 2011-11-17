@@ -35,6 +35,14 @@ from google.appengine.api import urlfetch
 from google.appengine.api.urlfetch import DownloadError 
 from google.appengine.ext.webapp import template
 
+## #################################
+## Here you can put what you have learned
+## at the Computer Science, Computer 
+## Engineering, Databases, Data Warehousing,
+## Business Intelligence, Database Management,
+## or Data Modelling classes
+## #################################
+
 ## =================================
 ## == N-point average constant
 ## == How many point will we use

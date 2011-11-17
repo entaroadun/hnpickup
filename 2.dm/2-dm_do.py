@@ -9,8 +9,8 @@
 #
 # good_time = newsest_are_scored_high/news_are_scored_low
 #
-# Quantiles are perfect for quantifying random variables.
-# We want to create four intervals when it is good to
+# Quantiles are good for finding cutoff values.
+# We want to create four intervals for when it is good to
 # submit: very good, good, so-so, and bad.
 #
 # Normally data mining will be more CPU and memory intensive.
@@ -35,6 +35,16 @@ from google.appengine.ext import db
 from google.appengine.api import urlfetch
 from google.appengine.api.urlfetch import DownloadError 
 from google.appengine.ext.webapp import template
+
+## #################################
+## Here you can put what you have learned
+## at the Statistics, Machine Learning,
+## Data Mining, Predictive Analytics,
+## Visualization, Artificial Intelligence,
+## Soft Computing, Computational Intelligence,
+## Business Intelligence, or Natural Language
+## Processing classes
+## #################################
 
 ## =================================
 ## == We arbitrary set the quantile
