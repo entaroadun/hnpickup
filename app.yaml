@@ -24,6 +24,9 @@ handlers:
 - url: /apple-touch-icon\.png
   static_files: 3.visualization/3-view_apple-touch-icon.png
   upload: 3.visualization/3-view_apple-touch-icon.png
+- url: /hnpickup_ratio_visual_analysis.png
+  static_files: 3.visualization/3-view_hnpickup_ratio_visual_analysis.png
+  upload: 3.visualization/3-view_hnpickup_ratio_visual_analysis.png
 - url: /robots\.txt
   static_files: 3.visualization/3-view_robots.txt
   upload: 3.visualization/3-view_robots.txt

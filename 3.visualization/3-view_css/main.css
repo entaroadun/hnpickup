@@ -23,6 +23,12 @@ body {
   text-shadow: 0 0 5px white;
   font-weight: 800;
   font-size: 1.2em;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 #grapher, #graph, #help, #helper, #flip, #plot {
   margin: 0;
