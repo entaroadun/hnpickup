@@ -25,7 +25,7 @@ $(function () {
   // Global graph data
   var SERIES = {};
   // Global data smoothing parameter
-  var SMOOTH = 0;
+  var SMOOTH = 1;
   var MAX_SMOOTH = 5;
   // Global data trimming parameter
   var TRIM = 0;
@@ -77,7 +77,7 @@ $(function () {
       OPTIONS = {
          lines: { show: true },
          points: { show: false },
-         xaxis: { ticks: 8, tickFormatter: function (val, axis) { var d = new Date(val); return checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()); } },
+         xaxis: { ticks: 10, tickFormatter: function (val, axis) { var d = new Date(val); return checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()); } },
          yaxes: [
            { position: "left", tickDecimals: 0, tickSize: 0, min: 0, max: QUANTILES.max_best },
            { position: "right", tickDecimals: 3, tickSize: 0, min: 0, max: QUANTILES.max_pickup }
