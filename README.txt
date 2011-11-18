@@ -51,10 +51,12 @@ framework and data flow:
 
 1.ETL -> 2.DM -> 3.VISUALIZATION
 
-1. ETL = Extract, Transform, Load
-2. DM = Data Mining
-3. VISUALISATION (VIEW) = Data presentation in a format
-that can support decision making process
+1.GET THE DATA -> 2.ADD VALUE -> 3.USE IT
+
+1. ETL = Extract, Transform, Load (GET THE DATA)
+2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
+3. VISUALISATION = Data presentation in a format 
+   that can support decision making process (USE IT, SHOW IT)
 
 This is how the code is organized. You can think of 
 it as a "Hello, World!" data mining web service 
