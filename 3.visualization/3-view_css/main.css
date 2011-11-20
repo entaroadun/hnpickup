@@ -1,93 +1,185 @@
 * {
+  -webkit-user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-user-select: none;
 }
 body { 
-  font: 16px 'Lucida Grande', Sans-Serif; 
-  color: #FFFFFF;
-  background-color: #BCB9B7;
   margin: 0;
   padding: 0;
+  color: #FFFFFF;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #BCB9B7;
+  font: 18px 'Lucida Grande', Sans-Serif; 
 }
 #main {
   margin: 0;
   padding: 0;
+  width: 1400px;
+  height: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 #title {
   margin: 0;
   padding: 0;
-  text-shadow: 0 0 5px white;
-  font-weight: 800;
-  font-size: 1.2em;
-  text-decoration: none;
   outline: none;
   color: white;
   display: block;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin-top: 1%;
+  font-weight: 800;
+  font-size: 1.5em;
+  margin-bottom: 1%;
+  text-decoration: none;
+  text-shadow: 0 0 5px white;
 }
-#grapher, #graph, #help, #helper, #flip, #plot {
+#graph, #flip, #help {
   margin: 0;
   padding: 0;
-  margin-top: 1px;
-  margin-bottom: 5px;
+  height: 400px; 
+  width: 800px; 
+  font-size: 1em;
   margin-left: auto;
   margin-right: auto;
-  width: 524px; 
-  height: 220px; 
-  font-size: 0.84em;
   border: 1px solid #BCB9B7; 
 }
 #plot {
-  width: 500px; 
-  height: 200px; 
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%; 
+  height: 90%; 
 }
 #trim {
-  width: 450px;
-  margin-left: 30px;
-  margin-bottom: 5px;
-  background: 0;
+  margin-left: 10%;
+  margin-bottom: 1%;
+  width: 77%;
+}
+#trim div {
+  width: 0;
+  height: 0;
+  margin-top: 2px;
+  margin-left: 45%;
+  color: #888888;
+  font-size: 0.5em;
 }
 #smooth {
-  margin-top: 5px;
-  height: 176px;
+  height: 81%;
   float: left;
-  background: 0;
+  margin-top: 1%;
+  margin-left: -2%;
 }
-#help {
-  text-align: left;
-  padding: 10px 20px 35px 20px;
-  width: 480px;
-  height: 165px;
-  background-color: #E5E1DE;
+#smooth div {
+  -webkit-transform: rotate(-90deg);	
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  width: 0;
+  height: 0;
+  margin-left: 1px;
+  margin-top: 1300%;
+  color: #888888;
+  font-size: 0.5em;
+}
+#y_label_1 {
+  -webkit-transform: rotate(-90deg);	
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  margin-top: -25%;
+  margin-left: -4%;
+  float: left;
   color: #444444;
+}
+#y_label_2 {
+  -webkit-transform: rotate(90deg);	
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+  margin-top: -25%;
+  margin-right: -12%;
+  text-transform: capitalize;
+  width: 30%;
+  float: right;
+  color: #444444;
+}
+#helper {
+  position: relative;
+  margin: 0;
+  width: 4%;
+  top: -88%;
+  left: 84%;
+  color: #444444;
+  font-size: 1.1em;
+}
+#grapher {
+  position: relative;
+  letter-spacing: -3px;
+  margin: 0;
+  width: 4%;
+  top: -93%;
+  left: 90%;
+  color: #444444;
+  font-size: 0.8em;
+}
+#legend {
+  margin: 0;
+  padding: 0;
+  width: 18%;
+  opacity: 0.9;
+  color: #444444;
+  float: right;
+  display: block;
+  margin-top: -17%;
+  margin-right: 3%;
+  line-height: 150%;
+  font-size: 0.8em;
+  text-align: left;
+  background-color: #E5E1DE;
+}
+#definitions {
+  margin: 1%;
+  padding: 2%;
+  width: 90%;
+  height: 85%;
+  opacity: 0.9;
+  color: #444444;
+  font-size: 0.8em;
+  text-align: left;
+  background-color: #E5E1DE;
 }
 ul, li {
   list-style: none;
-  padding: 2px;
+  padding: 1%;
   margin: 0;
 }
 ul li:before {
   content: '\00BB \0020';
 }
 #error {
-  margin: 40px;
-  padding: 40px;
+  margin: 9%;
+  padding: 9%;
   color: #807B77;
-  font-size: 2.5em;
+  font-size: 1.5em;
 }
-#back {
+#recommendation {
   margin: 0;
   padding: 0;
-  text-decoration: none;
-  color: #807B77;
-}
-#timing {
   color: #444444;
+  text-decoration: none;
+}
+#github {
+  color: #807B77;
+  text-decoration: none;
+  outline: none;
+}
+#donation {
+  margin: 0;
+  padding: 0;
+  margin-top: 1%;
 }
 #table {
   padding: 0;
@@ -101,5 +193,6 @@ ul li:before {
   margin: 0;
   padding: 3px 7px 3px 7px;
   border: 1px solid #444444;
+  text-align: left;
 }
 

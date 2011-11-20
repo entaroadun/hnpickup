@@ -2,8 +2,8 @@
 #
 # Data Mining starts with collecting
 # the right data. Here we mine the average
-# score of the worst articles on HN "news" web page
-# and the best scored articles on HN "newest" web page
+# score of the lowest scored articles on HN "news" web page
+# and the highest scored articles on HN "newest" web page
 # if we would know that "newest" articles can get to the 
 # "news" page then it's good time to submit. We can 
 # approximate this by waiting until lowest articles on the
@@ -61,8 +61,8 @@ N_POINT_AVERAGE = 6
 
 class HNscore(db.Model):
   etime = db.IntegerProperty()
-  score_best = db.FloatProperty()
-  score_new = db.FloatProperty()
+  score_best = db.FloatProperty() ## !! best = news !!
+  score_new = db.FloatProperty() ## !! new = newest !!
   pickup_ratio = db.FloatProperty()
 
 ## =================================
@@ -83,59 +83,59 @@ class MainHandler(webapp.RequestHandler):
 ## -- simple regular expression extraction
 ## -- (a much better way is to use web APIs)
 ## -- (look for web API here http://www.programmableweb.com/)
-    data_new = [];
-    data_new_score = float(0);
+    data_newest = [];
+    data_newest_score = float(0);
     result = urlfetch.fetch(url='https://news.ycombinator.com/newest',deadline=60)
     if result.status_code == 200:
       txt_data = result.content
       for m in re.finditer(r"(\d+) points?</span> by (.+?) (\d+) (minutes?|hours?|days?) ago",txt_data):
-        data_new.append(int(m.group(1)))
+        data_newest.append(int(m.group(1)))
         html_data.append({'col1':'newest','col2':m.group(1),'col3':m.group(2)})
-      data_new.sort(reverse=True)
-      data_new_num = 0
-      data_new_den = 0
-      if len(data_new) >= N_POINT_AVERAGE:
+      data_newest.sort(reverse=True)
+      data_newest_num = 0
+      data_newest_den = 0
+      if len(data_newest) >= N_POINT_AVERAGE:
         for i in range(0,N_POINT_AVERAGE):
-          data_new_num += data_new[i]
-          data_new_den += 1
-      if data_new_den: 
-        data_new_score = float(data_new_num)/float(data_new_den)  
+          data_newest_num += data_newest[i]
+          data_newest_den += 1
+      if data_newest_den: 
+        data_newest_score = float(data_newest_num)/float(data_newest_den)  
 ## ---------------------------
 ## -- ETL Source 2: 
 ## -- N-point avarege of lowest score submissions
 ## -- simple regular expression extraction
 ## -- (a much better way is to use web APIs)
 ## -- (look for web API here http://www.programmableweb.com/)
-    data_best = [];
-    data_best_score = float(0);
+    data_news = [];
+    data_news_score = float(0);
     result = urlfetch.fetch(url='https://news.ycombinator.com/news',deadline=60)
     if result.status_code == 200:
       txt_data = result.content
       for m in re.finditer(r"(\d+) points?</span> by (.+?) (\d+) (minutes?|hours?|days?) ago",txt_data):
-        data_best.append(int(m.group(1)))
+        data_news.append(int(m.group(1)))
         html_data.append({'col1':'news','col2':m.group(1),'col3':m.group(2)});
-      data_best.sort()  
-      data_best_num = 0
-      data_best_den = 0
-      if len(data_best) >= N_POINT_AVERAGE:
+      data_news.sort()  
+      data_news_num = 0
+      data_news_den = 0
+      if len(data_news) >= N_POINT_AVERAGE:
         for i in range(0,N_POINT_AVERAGE):
-          data_best_num += data_best[i]
-          data_best_den += 1
-      if data_best_den: 
-        data_best_score = float(data_best_num)/float(data_best_den)  
+          data_news_num += data_news[i]
+          data_news_den += 1
+      if data_news_den: 
+        data_news_score = float(data_news_num)/float(data_news_den)  
 ## ---------------------------
 ## -- if we have results from
 ## -- both sources then lets 
 ## -- put it in a database
-    if data_new_score and data_best_score:
+    if data_newest_score and data_news_score:
       etime_now = int(time.time()*1000)
-      hntime = HNscore(etime=etime_now,score_best=data_best_score,score_new=data_new_score,pickup_ratio=data_new_score/data_best_score)
+      hntime = HNscore(etime=etime_now,score_best=data_news_score,score_new=data_newest_score,pickup_ratio=data_newest_score/data_news_score)
       hntime.put()
       html_data.append({'col1':'timestamp','col2':'newest','col3':'news'})
-      html_data.append({'col1':etime_now,'col2':data_new_score,'col3':data_best_score})
-      html_data.append({'col1':'lenghts','col2':len(data_new),'col3':len(data_best)})
-      html_data.append({'col1':'denominators','col2':data_new_den,'col3':data_best_den})
-      html_data.append({'col1':'numerators','col2':data_new_num,'col3':data_best_num})
+      html_data.append({'col1':etime_now,'col2':data_newest_score,'col3':data_news_score})
+      html_data.append({'col1':'lenghts','col2':len(data_newest),'col3':len(data_news)})
+      html_data.append({'col1':'denominators','col2':data_newest_den,'col3':data_news_den})
+      html_data.append({'col1':'numerators','col2':data_newest_num,'col3':data_news_num})
 ## ---------------------------
 ## -- we can double check if the
 ## -- results went to the DB

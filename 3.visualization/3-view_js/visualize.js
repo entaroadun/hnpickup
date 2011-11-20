@@ -1,6 +1,20 @@
 // here we are using jQuery notation
 $(function () {
   // ====================================
+  // Pretty day formatting
+  // function for graph ticks
+  function checkDay(i) {
+    var weekday = [];
+    weekday.push('Mo');
+    weekday.push('Tu');
+    weekday.push('We');
+    weekday.push('Th');
+    weekday.push('Fr');
+    weekday.push('Sa');
+    weekday.push('Su');
+    return weekday[i];
+  }
+  // ====================================
   // Pretty time formatting
   // function for graph ticks
   function checkTime(i) {
@@ -77,12 +91,32 @@ $(function () {
       OPTIONS = {
          lines: { show: true },
          points: { show: false },
-         xaxis: { ticks: 10, tickFormatter: function (val, axis) { var d = new Date(val); return checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()); } },
+         xaxis: { 
+	     ticks: function (axis) {
+	              // fancy ticks, we need to know when is now,
+		      // what day it is, and what is the time zone;
+		      // not possible to have all info for every tick
+		      // so we apply trick that there will be different
+		      // info for the first and last tick
+		      var res = [];
+		      var dif = Math.ceil((axis.max-axis.min)/7);
+		      var d = new Date(axis.min);
+		      var sgn = '+'; if ( d.getTimezoneOffset() < 0 ) { sgn = '-'; }
+		      var min_date = checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()) + '<br> UTC' + sgn + Math.round(d.getTimezoneOffset()/60);
+		      res.push([axis.min,min_date]);
+		      for ( i=axis.min+dif; i<axis.max; i += dif ) {
+			d = new Date(i);
+			res.push([i, checkDay(d.getDay()) + ' ' + checkTime(d.getHours()) + ":" + checkTime(d.getMinutes())]);
+		      }
+		      res.push([axis.max, 'now ' + '<br> UTC' + sgn + Math.round(d.getTimezoneOffset()/60)]);
+		      return res;
+	       } 
+	   },
          yaxes: [
-           { position: "left", tickDecimals: 0, tickSize: 0, min: 0, max: QUANTILES.max_best },
+           { position: "left", tickDecimals: 0, tickSize: 0, min: 0, max: QUANTILES.max_news },
            { position: "right", tickDecimals: 3, tickSize: 0, min: 0, max: QUANTILES.max_pickup }
          ],
-         legend: { position: 'sw', backgroundColor: '#E5E1DE', backgroundOpacity: 0.60 }
+         legend: { container: $('#legend') }
       };
       // now we are ready to load the graph
       // ("time sensitive" data)
@@ -113,16 +147,21 @@ $(function () {
        data_length = SERIES[0].data.length - 1;
        timing_diff = SERIES[2].data[data_length][1];
        if ( timing_diff > QUANTILES.quant1 ) {
-         timing_suggestion = 'very good' 
+         timing_suggestion = 'very good';
+	 href_suggestion = 'http://news.ycombinator.com/submit';
        } else if ( timing_diff > QUANTILES.quant2 ) {
-         timing_suggestion = 'good' 
+         timing_suggestion = 'good';
+	 href_suggestion = 'http://news.ycombinator.com/submit';
        } else if ( timing_diff > QUANTILES.quant3 ) {
-         timing_suggestion = 'so-so' 
+         timing_suggestion = 'so-so';
+	 href_suggestion = 'http://news.ycombinator.com/newsest';
        } else {
-         timing_suggestion = 'bad'
+         timing_suggestion = 'bad';
+	 href_suggestion = 'http://news.ycombinator.com/news';
        }
        // Update HTML with the recommendation
        $('#timing').text(timing_suggestion);
+       $('#recommendation').attr('href',href_suggestion);
        // Plot the graph
        $.plot($('#plot'),smoothAndTrimSeries(SERIES,SMOOTH,TRIM),OPTIONS);
        // Create sliders
@@ -130,8 +169,8 @@ $(function () {
        $('#trim').slider({min:0,max:data_length-MAX_SMOOTH-1,orientation:'horizontal',range:'min',slide:function(e,ui){TRIM=ui.value; $.plot($('#plot'),smoothAndTrimSeries(SERIES,SMOOTH,TRIM),OPTIONS);}});
      }
      // jQuery ajax call
-     // pass number of needed data elements 
-     // from the request to the json generator 
+     // pass number of needed data elements
+     // from the request to the json generator
      $.ajax({
        url: '/etl.json?ndata_elements='+getURLParameter('ndata_elements'),
        method: 'GET',
@@ -144,8 +183,6 @@ $(function () {
   // run all function
   // when the html is ready
   $(document).ready(function() {
-    // iOS compatibility
-    updateOrientation();
     // initialize quantile
     // and graph data
     fetchAllData();
@@ -154,27 +191,4 @@ $(function () {
     $('#flip').quickFlip({ctaSelector:'.cta'});
   });
 });
-// ====================================
-// Simple iOS compatibility:
-// so that graph fits on the screen
-function updateOrientation() {
-  if ( typeof window.orientation != 'undefined' ) {
-    var metas = document.getElementsByTagName('meta');
-    for (i=0; i<metas.length; i++) {
-      if (metas[i].name == 'viewport') {
-	if ( window.orientation == 0 || window.orientation == 180 ) {
-	  metas[i].content = 'initial-scale=0.6';
-	} else {
-	  metas[i].content = 'initial-scale=0.9';
-	}
-      }
-    }
-  }
-}
-// ====================================
-// Simple iOS compatibility:
-// prevent from sliding the whole window
-document.ontouchmove = function(event){
-  event.preventDefault();
-}
 

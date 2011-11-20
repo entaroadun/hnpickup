@@ -23,11 +23,11 @@ from google.appengine.ext import db
 ##
 ## library(rjson);
 ## dat <- fromJSON(file='http://hnpickup.appspot.com/etl.json?ndata_elements=999');
-## score_new <- sapply(x[[1]][['data']],function(x){x[2]})
-## score_best <- sapply(x[[2]][['data']],function(x){x[2]})
+## score_newest <- sapply(x[[1]][['data']],function(x){x[2]})
+## score_news <- sapply(x[[2]][['data']],function(x){x[2]})
 ## pickup_ratio <- sapply(x[[3]][['data']],function(x){x[2]})
 ## 
-## plot(score_new,score_best,lwd=2);
+## plot(score_newest,score_news,lwd=2);
 ##
 ## ##################################
 
@@ -40,8 +40,8 @@ from google.appengine.ext import db
 
 class HNscore(db.Model):
   etime = db.IntegerProperty()
-  score_new = db.FloatProperty()
-  score_best = db.FloatProperty()
+  score_best = db.FloatProperty() ## !! best = news !!
+  score_new = db.FloatProperty() ## !! new = newest !!
   pickup_ratio = db.FloatProperty()
 
 ## =================================
@@ -55,11 +55,11 @@ class HNscore(db.Model):
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    data_best = [];
-    data_new = [];
+    data_news = [];
+    data_newest = [];
     pickup_ratio = [];
     str_ndata_elements = self.request.get('ndata_elements')
-    ndata_elements = 192 ## this is equal to 2d = 2 * 24 * 4 * 15 min
+    ndata_elements = 144 ## this is equal to 1d + 12h = (24 + 12) * 4 * 15min
 ## ------------------------
 ## -- remeber to cleanup user
 ## -- input, some one might
@@ -79,13 +79,13 @@ class MainHandler(webapp.RequestHandler):
     results = qry.fetch(ndata_elements)
     for i in range(ndata_elements-1,-1,-1): ## reverse the data, i think "reverse" function takes a lot of cpu
       if i < len(results):
-        data_best.append([int(results[i].etime),float(results[i].score_best)])
-        data_new.append([int(results[i].etime),float(results[i].score_new)])
+        data_news.append([int(results[i].etime),float(results[i].score_best)])
+        data_newest.append([int(results[i].etime),float(results[i].score_new)])
         pickup_ratio.append([int(results[i].etime),float(results[i].pickup_ratio)]) ## the difference tells us if it's good time or not 
 ## --  plugin the data into a tamplate variable
     template_values = {
-      'data_best': data_best,
-      'data_new': data_new,
+      'data_news': data_news,
+      'data_newest': data_newest,
       'pickup_ratio': pickup_ratio
     }
     path = os.path.join(os.path.dirname(__file__), '1-etl_view.tmpl')

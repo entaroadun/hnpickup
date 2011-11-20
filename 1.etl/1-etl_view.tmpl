@@ -1,8 +1,8 @@
 [
 { 
-  "label": "Highest new stories", 
+  "label": "Newest stories top average score", 
   "data": [
-  {% for data in data_new %}
+  {% for data in data_newest %}
      {{ data }} 
      {% if not forloop.last %} 
      , 
@@ -12,9 +12,9 @@
   "yaxis": 1
 },
 { 
-  "label": "Lowest best stories", 
+  "label": "News stories bottom average score", 
   "data": [
-  {% for data in data_best %}
+  {% for data in data_news %}
      {{ data }} 
      {% if not forloop.last %} 
      , 
