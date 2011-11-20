@@ -112,7 +112,7 @@ body {
   width: 4%;
   top: -88%;
   left: 84%;
-  color: #444444;
+  color: #807B77;
   font-size: 1.1em;
 }
 #grapher {
@@ -122,7 +122,7 @@ body {
   width: 4%;
   top: -93%;
   left: 90%;
-  color: #444444;
+  color: #807B77;
   font-size: 0.8em;
 }
 #legend {
@@ -170,6 +170,9 @@ ul li:before {
   padding: 0;
   color: #444444;
   text-decoration: none;
+}
+#submit {
+  color: #807B77;
 }
 #github {
   color: #807B77;
