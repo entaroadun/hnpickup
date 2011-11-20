@@ -177,7 +177,8 @@ $(function () {
        dataType: 'json',
        success: onDataReceived
      });
-     setTimeout(fetchGraphData, 600000);
+     // refresh graph every 15 min
+     setTimeout(fetchGraphData, 900000);
   }
   // ====================================
   // run all function
