@@ -17,7 +17,7 @@ body {
   margin: 0;
   padding: 0;
   width: 1250px;
-  height: 500px;
+  height: 550px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -196,5 +196,19 @@ ul li:before {
   padding: 3px 7px 3px 7px;
   border: 1px solid #444444;
   text-align: left;
+}
+#hnbutton {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 8px;
+}
+#hnpoints {
+  margin: 0;
+  padding: 0;
+  color: #555555;
+  font-size: 0.70em;
+  display: block;
+  margin-top: 1%;
 }
 
