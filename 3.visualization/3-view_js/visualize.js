@@ -5,13 +5,13 @@ $(function () {
   // function for graph ticks
   function checkDay(i) {
     var weekday = [];
+    weekday.push('Su');
     weekday.push('Mo');
     weekday.push('Tu');
     weekday.push('We');
     weekday.push('Th');
     weekday.push('Fr');
     weekday.push('Sa');
-    weekday.push('Su');
     return weekday[i];
   }
   // ====================================
