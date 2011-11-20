@@ -16,7 +16,7 @@ body {
 #main {
   margin: 0;
   padding: 0;
-  width: 1400px;
+  width: 1250px;
   height: 500px;
   margin-left: auto;
   margin-right: auto;
@@ -129,14 +129,13 @@ body {
   margin: 0;
   padding: 0;
   width: 18%;
-  opacity: 0.9;
+  opacity: 0.8;
   color: #444444;
   float: right;
   display: block;
-  margin-top: -17%;
-  margin-right: 3%;
+  margin-top: -20%;
   line-height: 150%;
-  font-size: 0.8em;
+  font-size: 0.76em;
   text-align: left;
   background-color: #E5E1DE;
 }
