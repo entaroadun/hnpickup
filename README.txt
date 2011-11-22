@@ -3,8 +3,6 @@
 ## == AI classes, what's next?"
 ## =============================
 
-
-
 How about if you apply your new strengths to the 
 real world data? There are a lot of challenging 
 problems waiting to be solved by you. But let's 
