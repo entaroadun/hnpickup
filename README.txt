@@ -1,4 +1,48 @@
 ## =============================
+## == "I took CS, DM, ML, NLP, and 
+## == AI classes, what's next?"
+## =============================
+
+
+
+How about if you apply your new strengths to the 
+real world data? There are a lot of challenging 
+problems waiting to be solved by you. But let's 
+start small first. The first step is to get your 
+own data. 
+
+Is there any website that you visit every day?
+I'm sure it produces fresh content daily: 
+new articles, new stats, new numbers. How about 
+you start collecting them? If you have your own
+data you can use for answering new interesting 
+questions.
+
+Does your favorite website have any trends? More
+articles are published in summer than winter?
+More people are willing to "like" the articles
+in spring than in autumn. Is it possible to predict
+which article will be more "liked" on Facebook?
+
+If you get an answer you should display it for 
+others to see. Do it so that it's pleasurable 
+for the eye. Colorful time series or multidimensional 
+scaling should do the trick. Describe your graph 
+so the people not familiar with your project 
+can understand it and enjoy it.
+
+What? It seems a lot of work? Well, here is a source
+code that deploys with one command on Google App 
+Engine. You just need to focus on where to get 
+the data (ETL), what to do with it (DM), and how
+to display it (VISUALIZATION). The examples are ready 
+for you to swap them with your own.
+
+Little by little you will master how to add monetary
+value to your data and sell it in your successful
+startup.
+
+## =============================
 ## == START
 ## =============================
 
