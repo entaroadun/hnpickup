@@ -59,10 +59,10 @@ N_POINT_AVERAGE = 6
 ## === two web pages every ~ 15 min
 ## =================================
 
-class HNscore(db.Model):
+class HNSCORE(db.Model):
   etime = db.IntegerProperty()
-  score_best = db.FloatProperty() ## !! best = news !!
-  score_new = db.FloatProperty() ## !! new = newest !!
+  score_news = db.FloatProperty()
+  score_newest = db.FloatProperty()
   pickup_ratio = db.FloatProperty()
 
 ## =================================
@@ -76,15 +76,15 @@ class HNscore(db.Model):
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    html_data = [];
+    html_data = []
 ## ---------------------------
 ## -- ETL Source 1: 
 ## -- N-point average of highest score submissions
 ## -- simple regular expression extraction
 ## -- (a much better way is to use web APIs)
 ## -- (look for web API here http://www.programmableweb.com/)
-    data_newest = [];
-    data_newest_score = float(0);
+    data_newest = []
+    data_newest_score = float(0)
     result = urlfetch.fetch(url='https://news.ycombinator.com/newest',deadline=60)
     if result.status_code == 200:
       txt_data = result.content
@@ -106,14 +106,14 @@ class MainHandler(webapp.RequestHandler):
 ## -- simple regular expression extraction
 ## -- (a much better way is to use web APIs)
 ## -- (look for web API here http://www.programmableweb.com/)
-    data_news = [];
-    data_news_score = float(0);
+    data_news = []
+    data_news_score = float(0)
     result = urlfetch.fetch(url='https://news.ycombinator.com/news',deadline=60)
     if result.status_code == 200:
       txt_data = result.content
       for m in re.finditer(r"(\d+) points?</span> by (.+?) (\d+) (minutes?|hours?|days?) ago",txt_data):
         data_news.append(int(m.group(1)))
-        html_data.append({'col1':'news','col2':m.group(1),'col3':m.group(2)});
+        html_data.append({'col1':'news','col2':m.group(1),'col3':m.group(2)})
       data_news.sort()  
       data_news_num = 0
       data_news_den = 0
@@ -129,7 +129,7 @@ class MainHandler(webapp.RequestHandler):
 ## -- put it in a database
     if data_newest_score and data_news_score:
       etime_now = int(time.time()*1000)
-      hntime = HNscore(etime=etime_now,score_best=data_news_score,score_new=data_newest_score,pickup_ratio=data_newest_score/data_news_score)
+      hntime = HNSCORE(etime=etime_now,score_news=data_news_score,score_newest=data_newest_score,pickup_ratio=data_newest_score/data_news_score)
       hntime.put()
       html_data.append({'col1':'timestamp','col2':'newest','col3':'news'})
       html_data.append({'col1':etime_now,'col2':data_newest_score,'col3':data_news_score})
@@ -141,10 +141,10 @@ class MainHandler(webapp.RequestHandler):
 ## -- results went to the DB
 ## -- but we will do it by looking
 ## -- at second last (previous) entry
-    qry = db.GqlQuery('SELECT * FROM HNscore ORDER BY etime DESC limit 2');
+    qry = db.GqlQuery('SELECT * FROM HNSCORE ORDER BY etime DESC limit 2')
     results = qry.fetch(2)
     if len(results) > 1:
-      html_data.append({'col1':results[1].etime,'col2':results[1].score_new,'col3':results[1].score_best})
+      html_data.append({'col1':results[1].etime,'col2':results[1].score_newest,'col3':results[1].score_news})
 ## ---------------------------
 ## -- finally print the report
 ## -- not really needed 

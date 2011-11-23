@@ -28,13 +28,13 @@ from google.appengine.ext import db
 ## === decision whether to submit
 ## =================================
 
-class HNquantiles(db.Model):
+class HNQUANTILES(db.Model):
   etime = db.IntegerProperty()
   quant1 = db.FloatProperty()
   quant2 = db.FloatProperty()
   quant3 = db.FloatProperty()
-  max_best = db.FloatProperty()
-  max_new = db.FloatProperty()
+  max_news = db.FloatProperty()
+  max_newest = db.FloatProperty()
   max_pickup = db.FloatProperty()
 
 ## =================================
@@ -61,7 +61,7 @@ class MainHandler(webapp.RequestHandler):
 ## -- now we are ready to get 
 ## -- the data and feed it into
 ## -- json template
-    qry = db.GqlQuery('SELECT * FROM HNquantiles ORDER BY etime DESC limit '+str(ndata_elements));
+    qry = db.GqlQuery('SELECT * FROM HNQUANTILES ORDER BY etime DESC limit '+str(ndata_elements));
     data_quantiles = qry.fetch(ndata_elements)
 ## --  plugin the data into a tamplate variable
     template_values = {

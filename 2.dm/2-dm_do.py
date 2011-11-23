@@ -64,10 +64,10 @@ QUANTILE_SO_SO = 0.7
 ## === two web pages every ~ 15 min
 ## =================================
 
-class HNscore(db.Model):
+class HNSCORE(db.Model):
   etime = db.IntegerProperty()
-  score_best = db.FloatProperty() ## !! best = news !!
-  score_new = db.FloatProperty() ## !! new = newest !!
+  score_news = db.FloatProperty()
+  score_newest = db.FloatProperty()
   pickup_ratio = db.FloatProperty()
 
 ## =================================
@@ -77,13 +77,13 @@ class HNscore(db.Model):
 ## === decision whether to submit
 ## =================================
 
-class HNquantiles(db.Model):
+class HNQUANTILES(db.Model):
   etime = db.IntegerProperty()
   quant1 = db.FloatProperty()
   quant2 = db.FloatProperty()
   quant3 = db.FloatProperty()
-  max_best = db.FloatProperty()
-  max_new = db.FloatProperty()
+  max_news = db.FloatProperty()
+  max_newest = db.FloatProperty()
   max_pickup = db.FloatProperty()
 
 ## =================================
@@ -91,6 +91,10 @@ class HNquantiles(db.Model):
 ## == http://code.activestate.com/recipes/511478-finding-the-percentile-of-the-values/
 ## == usually more complicated statistical
 ## == methods are needed (e.g. numpy)
+## == or even more complicated ML methods
+## == that might be run on specialized
+## == cloud computational clusters
+## == (e.g. google predict api)
 ## =================================
 
 def percentile(N, percent, key=lambda x:x):
@@ -124,15 +128,15 @@ def percentile(N, percent, key=lambda x:x):
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    html_data = [];
-    score_news = [];
-    score_newest = [];
-    pickup_ratio = [];
-    qry = db.GqlQuery('SELECT * FROM HNscore ORDER BY etime DESC')
+    html_data = []
+    score_news = []
+    score_newest = []
+    pickup_ratio = []
+    qry = db.GqlQuery('SELECT * FROM HNSCORE ORDER BY etime DESC')
     results = qry.fetch(1000)
     for result in results:
-      score_news.append(result.score_best)
-      score_newest.append(result.score_new)
+      score_news.append(result.score_news)
+      score_newest.append(result.score_newest)
       pickup_ratio.append(result.pickup_ratio)
       html_data.append({'col1':result.etime,'col2':result.pickup_ratio})
 ## -------------------------------
@@ -144,28 +148,34 @@ class MainHandler(webapp.RequestHandler):
     quant1 = percentile(pickup_ratio,QUANTILE_VERY_GOOD)
     quant2 = percentile(pickup_ratio,QUANTILE_GOOD)
     quant3 = percentile(pickup_ratio,QUANTILE_SO_SO)
-    max_best = max(score_news)
-    max_new = max(score_newest)
+    max_news = max(score_news)
+    max_newest = max(score_newest)
     max_pickup = max(pickup_ratio)
+## -- good for debugging
     html_data.append({'col1':'quant1','col2':quant1})
     html_data.append({'col1':'quant2','col2':quant2})
     html_data.append({'col1':'quant3','col2':quant3})
+    html_data.append({'col1':'max','col2':max_news})
+    html_data.append({'col1':'max','col2':max_newest})
     html_data.append({'col1':'max','col2':max_pickup})
 ## -------------------------------
 ## -- store quantiles in db with a 
 ## -- time stamp
     etime_now = int(time.time()*1000)
-    hnquantiles = HNquantiles(etime=etime_now,quant1=quant1,quant2=quant2,quant3=quant3,max_best=max_best,max_new=max_new,max_pickup=max_pickup)
+    hnquantiles = HNQUANTILES(etime=etime_now,quant1=quant1,quant2=quant2,quant3=quant3,max_news=max_news,max_newest=max_newest,max_pickup=max_pickup)
     hnquantiles.put()
 ## -------------------------------
 ## -- check if we can retrieve 
 ## -- previous answer
-    qry = db.GqlQuery('SELECT * FROM HNquantiles ORDER BY etime DESC limit 2');
+## -- good for debugging
+    qry = db.GqlQuery('SELECT * FROM HNQUANTILES ORDER BY etime DESC limit 2')
     results = qry.fetch(2)
     if len(results) > 1:
       html_data.append({'col1':'quant1','col2':results[1].quant1})
       html_data.append({'col1':'quant2','col2':results[1].quant2})
       html_data.append({'col1':'quant3','col2':results[1].quant3})
+      html_data.append({'col1':'max','col2':results[1].max_news})
+      html_data.append({'col1':'max','col2':results[1].max_newest})
       html_data.append({'col1':'max','col2':results[1].max_pickup})
 ## -------------------------------
 ## -- all we did is printed in a table
