@@ -3,6 +3,14 @@ version: 7
 runtime: python
 api_version: 1
 
+# you might have two different
+# application that you want to
+# copy data between, e.g.:
+# http://code.google.com/appengine/docs/python/tools/uploadingdata.html
+
+builtins:
+- remote_api: on
+
 # this files defined all our
 # routes, backends use same routes
 # as frontends
