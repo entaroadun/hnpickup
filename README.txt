@@ -66,23 +66,28 @@ http://code.google.com/p/google-appengine-wx-launcher/
 ## =============================
 
 This is example of a simple data mining application.
-Here, HN aggregator is our source of data. The data
-mining objective is to figure out when is good time
-to post an article or a story.
+Here Hacker News aggregator is our source of data. 
+The data mining objective is to figure out when is good time
+to post an article or a story on Hacker News website so
+other people will upvote it and it will get to from 
+the "newest" page to "news" page.
 
 ## =============================
 ## == MODEL
 ## =============================
 
-This app should serve as a company business model.
-The application of this model is business to business
-service. The claim is that DATA MINING applications 
-bring better EXPERIENCE, OUTCOMES, and VALUE to 
-customer`s, i.e., company`s, current services. 
-There are many problems that can be solved using
-existing electronic data. Since almost very company
-produces some sort of electronic data there is 
-a vast market waiting to be improved.
+This app can serve as a simple business model where 
+you claim is that your DATA MINING application 
+bring better EXPERIENCE, OUTCOME, and VALUE to 
+existing products or by making existing product
+cheaper, one can create new products which were
+not possible without the expense cut. Now this 
+might seems a bit abstract but once you add new
+knowledge to existing data you will start seeing
+patterns: existing large data can be abstracted 
+to small chunks of informations that are more valueable
+than the large data. That's where you sell your 
+product.
 
 ## =============================
 ## == CODE
