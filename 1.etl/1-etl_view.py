@@ -23,9 +23,9 @@ from google.appengine.ext import db
 ##
 ## library(rjson);
 ## dat <- fromJSON(file='http://hnpickup.appspot.com/etl.json?ndata_elements=999');
-## score_newest <- sapply(x[[1]][['data']],function(x){x[2]})
-## score_news <- sapply(x[[2]][['data']],function(x){x[2]})
-## pickup_ratio <- sapply(x[[3]][['data']],function(x){x[2]})
+## score_newest <- sapply(dat[[1]][['data']],function(x){x[2]})
+## score_news <- sapply(dat[[2]][['data']],function(x){x[2]})
+## pickup_ratio <- sapply(dat[[3]][['data']],function(x){x[2]})
 ## 
 ## plot(score_newest,score_news,lwd=2);
 ##
