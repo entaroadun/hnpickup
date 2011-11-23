@@ -69,7 +69,7 @@ This is example of a simple data mining application.
 Here Hacker News aggregator is our source of data. 
 The data mining objective is to figure out when is good time
 to post an article or a story on Hacker News website so
-other people will upvote it and it will get to from 
+other people will up-vote it and it will get to from 
 the "newest" page to "news" page.
 
 ## =============================
@@ -79,53 +79,58 @@ the "newest" page to "news" page.
 This app can serve as a simple business model where 
 you claim is that your DATA MINING application 
 bring better EXPERIENCE, OUTCOME, and VALUE to 
-existing products or by making existing product
-cheaper, one can create new products which were
-not possible without the expense cut. Now this 
-might seems a bit abstract but once you add new
-knowledge to existing data you will start seeing
-patterns: existing large data can be abstracted 
-to small chunks of informations that are more valueable
-than the large data. That's where you sell your 
-product.
+existing products. How come? If you start adding new
+knowledge to existing data you will see the
+pattern: large data can be abstracted to a small 
+chunk of information that is more valuable
+than the large dataset. That's how you sell your 
+service. Example? Every day you observe cars;
+that's a lot of data, however, you notice that
+around 8 am there are many more cars than at other
+hours; this is your small chunk of information.
+This small chunk will save you 30 min of stuck
+in traffic: better experience, outcome and value.
 
 ## =============================
 ## == CODE
 ## =============================
 
-Most data mining application will have similar 
-framework and data flow:
+Most data mining application will have very similar 
+information flow:
 
 1.ETL -> 2.DM -> 3.VISUALIZATION
 
+Which means:
+
 1.GET THE DATA -> 2.ADD VALUE -> 3.USE IT
+
+That's why the code is organized into three sections:
 
 1. ETL = Extract, Transform, Load (GET THE DATA)
 2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
 3. VISUALISATION = Data presentation in a format 
    that can support decision making process (USE IT, SHOW IT)
 
-This is how the code is organized. You can think of 
-it as a "Hello, World!" data mining web service 
-and application. Data can be visualized using JS frameworks
-or it can be imported to external desktop software through JSON.
+You can think of the code as a "Hello, World!" web data mining 
+example. You shouldn't be surprised that most of the code went
+into visualization. That's how you get your customers to buy-in. 
+Data for visualization is obtained using JSON serialization.
 
 ## =============================
 ## == WARNING
 ## =============================
 
-This app shows the raw data to support the decision if 
-it`s good time to post on HN or not. Most often it`s 
-not a good idea to show the raw data to the client since
-it clogs the interface with unnecessary information.
+This app shows some raw data. For more complicated projects
+it might not be good idea to show the raw data. Too much
+data on the user interface will clog the decision making
+process.
 
 ## =============================
 ## == HOPE
 ## =============================
 
-The hope, here, is that young start-ups can use this 
-code to quickly organize and prototype their idea. 
-Google App Engine can run this app for free, giving
-opportunity to demonstrate their idea to potential
-investors.
-
+The hope is that young start-ups can use this 
+code to quickly organize their thoughts and prototype 
+their idea. Google App Engine can run this app for free, 
+giving opportunity to demonstrate a working version of 
+their idea and bigger potential for investors.
