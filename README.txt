@@ -65,6 +65,11 @@ It's also good to have Google Analytics account:
 
 http://www.google.com/analytics/
 
+You can also check webmaster tools to make sure your
+website is properly indexed by Google:
+
+https://www.google.com/webmasters/tools
+
 ## =============================
 ## == INTRO
 ## =============================
