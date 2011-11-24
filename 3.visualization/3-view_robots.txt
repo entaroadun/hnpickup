@@ -6,7 +6,8 @@
 User-agent: ArchitextSpider
 User-agent: Baiduspider
 User-agent: Googlebot
-User-agent: Googlebot-ImageUser-agent: Mediapartners-Google
+User-agent: Googlebot-Image
+User-agent: Mediapartners-Google
 User-agent: msnbot
 User-agent: msnbot-media
 User-agent: Scooter
