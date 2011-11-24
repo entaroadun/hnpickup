@@ -61,6 +61,10 @@ For lunching the app you can use this nice GUI:
 http://code.google.com/p/google-appengine-mac-launcher/
 http://code.google.com/p/google-appengine-wx-launcher/
 
+It's also good to have Google Analytics account:
+
+http://www.google.com/analytics/
+
 ## =============================
 ## == INTRO
 ## =============================
