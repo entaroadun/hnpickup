@@ -1,3 +1,8 @@
+/* 
+Couple tweaks so the app works 
+well on iOS - nothing on the 
+screen should be selectable
+*/
 * {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
@@ -13,14 +18,24 @@ body {
   background-color: #BCB9B7;
   font: 18px 'Lucida Grande', Sans-Serif; 
 }
+/* 
+The idea is that we set up
+viewport size in one place, 
+for that we use pixels size,
+the rest is set by percentages
+*/
 #main {
   margin: 0;
   padding: 0;
-  width: 1250px;
+  width: 1200px;
   height: 550px;
   margin-left: auto;
   margin-right: auto;
 }
+/* 
+Title with nice
+litup effect
+*/
 #title {
   margin: 0;
   padding: 0;
@@ -34,6 +49,11 @@ body {
   text-decoration: none;
   text-shadow: 0 0 5px white;
 }
+/* 
+This part if CSS defines 
+display of elements inside 
+inside the "flip" element
+*/
 #graph, #flip, #help {
   margin: 0;
   padding: 0;
@@ -55,6 +75,7 @@ body {
   margin-bottom: 1%;
   width: 77%;
 }
+/* Label the trim slider */
 #trim div {
   width: 0;
   height: 0;
@@ -67,8 +88,9 @@ body {
   height: 76%;
   float: left;
   margin-top: 1%;
-  margin-left: -2%;
+  margin-left: -1%;
 }
+/* Label the smooth slider */
 #smooth div {
   -webkit-transform: rotate(-90deg);	
   -moz-transform: rotate(-90deg);
@@ -82,6 +104,7 @@ body {
   color: #888888;
   font-size: 0.5em;
 }
+/* Axes labels */
 #y_label_1 {
   -webkit-transform: rotate(-90deg);	
   -moz-transform: rotate(-90deg);
@@ -128,14 +151,14 @@ body {
 #legend {
   margin: 0;
   padding: 0;
-  width: 18%;
-  opacity: 0.8;
+  width: 17%;
+  opacity: 0.9;
   color: #444444;
   float: right;
   display: block;
   margin-top: -20%;
   line-height: 150%;
-  font-size: 0.76em;
+  font-size: 0.69em;
   text-align: left;
   background-color: #E5E1DE;
 }
@@ -158,6 +181,15 @@ ul, li {
 ul li:before {
   content: '\00BB \0020';
 }
+#github {
+  color: #807B77;
+  text-decoration: none;
+  outline: none;
+}
+/*
+These elements are
+below the flip area
+*/
 #error {
   margin: 9%;
   padding: 9%;
@@ -173,30 +205,6 @@ ul li:before {
 #submit {
   color: #807B77;
 }
-#github {
-  color: #807B77;
-  text-decoration: none;
-  outline: none;
-}
-#donation {
-  margin: 0;
-  padding: 0;
-  margin-top: 1%;
-}
-#table {
-  padding: 0;
-  margin: 0;
-  border: 1px solid #444444;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-}
-#table td, tr {
-  margin: 0;
-  padding: 3px 7px 3px 7px;
-  border: 1px solid #444444;
-  text-align: left;
-}
 #hnbutton {
   margin: 0;
   padding: 0;
@@ -210,5 +218,25 @@ ul li:before {
   font-size: 0.70em;
   display: block;
   margin-top: 1%;
+}
+/*
+In the ETL & DM processes
+we create an HTML table
+in case we need to debug the
+ETL & DM code
+*/
+#table {
+  padding: 0;
+  margin: 0;
+  border: 1px solid #444444;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+#table td, tr {
+  margin: 0;
+  padding: 3px 7px 3px 7px;
+  border: 1px solid #444444;
+  text-align: left;
 }
 

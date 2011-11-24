@@ -12,13 +12,29 @@
     <script language='javascript' type='text/javascript' src='/js/quickflip/jquery.quickflip.min.js'></script>
     <script language='javascript' type='text/javascript' src='/js/visualize.js'></script>
     <script type='text/javascript'>
+      // gather statistics on who and how looks at your web page
+      // store it in google analytics web service
       var _gaq = _gaq || [];
+      // everyone has their own account number
       _gaq.push(['_setAccount', 'UA-26837634-1']);
       _gaq.push(['_trackPageview']);
       (function() {
-       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	 // google analytics doesn't track viewport
+	 // so we have to do it for them
+         var viewportWidth=$(window).width();
+         _gaq.push(['_trackEvent', 'Viewport Dimensions', 'Viewport Dimensions Initial', viewportWidth+'x'+$(window).height(), viewportWidth, true]);
+         // track viewport dimensions being changed by resize (throttled)
+         var gaResizeCompleteHl;
+         $(window).resize(function(){
+            clearTimeout(gaResizeCompleteHl);
+            gaResizeCompleteHl = setTimeout(function(){
+              var viewportWidth=$(window).width();
+              _gaq.push(['_trackEvent', 'Viewport Dimensions', 'Viewport Dimensions Resized', viewportWidth+'x'+$(window).height(), viewportWidth, true]);
+            },1000);
+         });
        })();
     </script>
   </head>
@@ -36,6 +52,7 @@
         <!-- y axes labels  -->
         <div id='y_label_1'>Averge score</div>
         <div id='y_label_2'>Pickup ratio</div>
+	<!-- just for show, so people know that they can click on the graph and get help info -->
 	<div id='helper' class='cta'><b>?</b></div>
       </div>
       <div id='help'>
@@ -48,12 +65,8 @@
 	    <li><b>Now it's ... time</b> - gives four recommendations whether now is good time to submit or not. There are four possible values mapped to top four <b>pickup ratio</b> quantiles: <b>very good</b>, <b>good</b>, <b>so-so</b>, and <b>bad</b>. </li>
 	  </ul>
 	  This small web application is a simple amalgam of ETL, data mining, and visualization processes. Data from other websites is gathered, enhanced, and presented as decision support tool. Source code will be soon available from <a id='github' href='https://github.com/entaroadun/hnpickup' onclick='document.location.href=this.href'>GitHub</a>.
-	  <form id='donation' action='https://www.paypal.com/cgi-bin/webscr' method='post'>
-	    <input type='hidden' name='cmd' value='_s-xclick'>
-	    <input type='hidden' name='encrypted' value='-----BEGIN PKCS7-----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-----END PKCS7----- '>
-	    If you want you can <input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' height='16px' style='position: relative; top: 5px;' name='submit' alt='PayPal - The safer, easier way to pay online!' onclick='form.submit();' > <img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='0' height='0'> google app engine server time.
-	  </form> 
         </div>
+	<!-- "go back" button - just for show so people know how to go back (flip) --> 
 	<div id='grapher' class='cta'><b>&lt;&lt;</b></div>
       </div>
     </div>
@@ -62,6 +75,7 @@
     <!-- recommendation systm goes here -->
     <a id='recommendation' href='#'>Now it's <span id='timing'>...</span> time to <span id='submit'>submit</span> a story</a>
     <br/>
+    <!-- hacker news button to show how many points your app got and also a user can add karma by clicking on it -->
     <span id='hnpoints'>This app got <iframe id='hnbutton' src='http://hnapiwrapper.herokuapp.com/button.html?width=120&amp;url=http://hnpickup.appspot.com/&amp;title=When is good time to submit a story on HN?' frameborder='0' height='22' width='90'></iframe> on HN.</span>
   </div>
   </body>
