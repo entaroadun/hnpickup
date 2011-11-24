@@ -32,6 +32,14 @@ from google.appengine.ext import db
 ## ##################################
 
 ## =================================
+## == Maximum number of data points 
+## == that is allowed to download
+## == (3000 ~ is roughly a month)
+## =================================
+
+MAX_NDATA_ELEMENTS = 3000
+
+## =================================
 ## === ETL data table, very simple,
 ## === it holds just three values
 ## === that are collected from
@@ -65,7 +73,7 @@ class MainHandler(webapp.RequestHandler):
 ## -- input, some one might
 ## -- hack your app
     str_ndata_elements = re.sub('\D+','',str_ndata_elements)
-    if len(str_ndata_elements) > 0 and int(str_ndata_elements) <= 1000:
+    if len(str_ndata_elements) > 0 and int(str_ndata_elements) <= MAX_NDATA_ELEMENTS:
 ## -- if MAX_SMOOTH = 5 then minimum number of data points is 7
       if int(str_ndata_elements) < 7:
 	ndata_elements = 7

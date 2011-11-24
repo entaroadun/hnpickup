@@ -50,12 +50,15 @@ from google.appengine.ext.webapp import template
 
 ## =================================
 ## == We arbitrary set the quantile
-## == intervals
+## == intervals; instead of using 
+## == non-robust max function we use
+## == quantile
 ## ================================
 
 QUANTILE_VERY_GOOD = 0.9
 QUANTILE_GOOD = 0.8
 QUANTILE_SO_SO = 0.7
+QUANTILE_MAX = 0.99
 
 ## =================================
 ## === ETL data table, very simple
@@ -144,13 +147,15 @@ class MainHandler(webapp.RequestHandler):
 ## -- normally we would have something more complicated
 ## -- for extracting important information but
 ## -- that's how we do DM here
+    score_news.sort()
+    score_newest.sort()
     pickup_ratio.sort()
     quant1 = percentile(pickup_ratio,QUANTILE_VERY_GOOD)
     quant2 = percentile(pickup_ratio,QUANTILE_GOOD)
     quant3 = percentile(pickup_ratio,QUANTILE_SO_SO)
-    max_news = max(score_news)
-    max_newest = max(score_newest)
-    max_pickup = max(pickup_ratio)
+    max_news = percentile(score_news,QUANTILE_MAX)
+    max_newest = percentile(score_newest,QUANTILE_MAX)
+    max_pickup = percentile(pickup_ratio,QUANTILE_MAX)
 ## -- good for debugging
     html_data.append({'col1':'quant1','col2':quant1})
     html_data.append({'col1':'quant2','col2':quant2})
