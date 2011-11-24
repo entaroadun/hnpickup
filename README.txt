@@ -70,6 +70,14 @@ website is properly indexed by Google:
 
 https://www.google.com/webmasters/tools
 
+If you want advertisements to pay your app engine bill, 
+apply here:
+
+https://www.google.com/adsense/
+
+Don't apply before you build your website because you will
+get rejected.
+
 ## =============================
 ## == INTRO
 ## =============================
