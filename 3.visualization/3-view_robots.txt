@@ -1,5 +1,32 @@
-User-agent: *
+# -------------------------
+# allow only important bots
+# there are too many bots to allow all
+# they eat your quota too fast
+# -------------------------
+User-agent: ArchitextSpider
+User-agent: Baiduspider
+User-agent: Googlebot
+User-agent: Googlebot-ImageUser-agent: Mediapartners-Google
+User-agent: msnbot
+User-agent: msnbot-media
+User-agent: Scooter
+User-agent: Slurp
+User-agent: Teoma
+User-agent: Yahoo-Blogs
+User-agent: Yahoo-MMCrawler
+User-agent: Yandex
+Allow: /
 Disallow: /etl_process
 Disallow: /etl.json
 Disallow: /dm_process
 Disallow: /dm.json
+
+# -------------------------
+# seems twitter has a ton of robots
+# waiting for news, they may cause 90%
+# of traffic that's why we are blocking
+# them here
+# -------------------------
+User-agent: *
+Disallow: /
+
