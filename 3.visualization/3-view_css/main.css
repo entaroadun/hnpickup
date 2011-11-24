@@ -49,6 +49,17 @@ litup effect
   text-decoration: none;
   text-shadow: 0 0 5px white;
 }
+/*
+AdSense program goes to the
+left side (opposite to the legend)
+*/
+#ads {
+  margin: 0;
+  padding: 0;
+  margin-top: 10%;
+  float: left;
+  border: 1px solid red;
+}
 /* 
 This part if CSS defines 
 display of elements inside 
