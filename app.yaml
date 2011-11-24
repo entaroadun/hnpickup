@@ -1,4 +1,4 @@
-application: hnpickupdev
+application: hnpickup
 version: 8
 runtime: python
 api_version: 1
