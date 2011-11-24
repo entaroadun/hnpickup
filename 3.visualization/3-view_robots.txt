@@ -1,7 +1,8 @@
 # -------------------------
 # allow only important bots
 # there are too many bots to allow all
-# they eat your quota too fast
+# this list is from:
+# http://rield.com/how-to/block-people-search-engine-bots
 # -------------------------
 User-agent: ArchitextSpider
 User-agent: Baiduspider
