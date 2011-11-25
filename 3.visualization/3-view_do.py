@@ -20,8 +20,20 @@ import os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp.util import run_wsgi_app
+
+# Read more at
+# http://code.google.com/appengine/docs/python/tools/libraries.html#Django
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+from google.appengine.dist import use_library
+use_library('django', '1.2')
 from google.appengine.ext.webapp import template
 
+## =================================
+## == We let jQuery do the most work;
+## == use client CPU instead of app
+## == engine CPU
+## =================================
 
 class MainHandler(webapp.RequestHandler):
   def get(self):

@@ -36,6 +36,13 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 from google.appengine.api import urlfetch
 from google.appengine.api.urlfetch import DownloadError 
+
+# Read more at
+# http://code.google.com/appengine/docs/python/tools/libraries.html#Django
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+from google.appengine.dist import use_library
+use_library('django', '1.2')
 from google.appengine.ext.webapp import template
 
 ## #################################
