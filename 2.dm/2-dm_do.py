@@ -65,7 +65,7 @@ from google.appengine.ext.webapp import template
 QUANTILE_VERY_GOOD = 0.9
 QUANTILE_GOOD = 0.8
 QUANTILE_SO_SO = 0.7
-QUANTILE_MAX = 0.99
+QUANTILE_MAX = 0.999
 
 ## =================================
 ## === ETL data table, very simple
