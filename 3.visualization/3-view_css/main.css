@@ -27,7 +27,7 @@ the rest is set by percentages
 #main {
   margin: 0;
   padding: 0;
-  width: 1200px;
+  width: 1196px;
   height: 550px;
   margin-left: auto;
   margin-right: auto;
@@ -139,6 +139,7 @@ inside the "flip" element
   float: right;
   color: #444444;
 }
+/* go to help */
 #helper {
   position: relative;
   margin: 0;
@@ -148,13 +149,14 @@ inside the "flip" element
   color: #807B77;
   font-size: 1.1em;
 }
+/* go back to graph*/
 #grapher {
   position: relative;
   letter-spacing: -3px;
   margin: 0;
   width: 4%;
-  top: -93%;
-  left: 90%;
+  top: -92%;
+  left: 93%;
   color: #807B77;
   font-size: 0.8em;
 }
@@ -174,9 +176,9 @@ inside the "flip" element
 }
 #definitions {
   margin: 1%;
-  padding: 2%;
-  width: 90%;
-  height: 85%;
+  padding: 3%;
+  width: 91%;
+  height: 80%;
   opacity: 0.9;
   color: #444444;
   font-size: 0.8em;
