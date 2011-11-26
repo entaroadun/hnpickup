@@ -155,7 +155,7 @@ inside the "flip" element
   letter-spacing: -3px;
   margin: 0;
   width: 4%;
-  top: -92%;
+  top: -90%;
   left: 93%;
   color: #807B77;
   font-size: 0.8em;
@@ -178,7 +178,7 @@ inside the "flip" element
   margin: 1%;
   padding: 3%;
   width: 91%;
-  height: 80%;
+  height: 78%;
   opacity: 0.9;
   color: #444444;
   font-size: 0.8em;
@@ -187,8 +187,12 @@ inside the "flip" element
 }
 ul, li {
   list-style: none;
-  padding: 1%;
+  padding: 0;
+  padding-bottom: 1%;
   margin: 0;
+}
+ul {
+  padding-top: 1%;
 }
 ul li:before {
   content: '\00BB \0020';
