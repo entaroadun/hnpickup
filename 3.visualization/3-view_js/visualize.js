@@ -99,10 +99,10 @@ $(function () {
 		      // so we apply trick that there will be different
 		      // info for the first and last tick
 		      var res = [];
-		      var dif = Math.ceil((axis.max-axis.min)/7);
+		      var dif = Math.ceil((axis.max-axis.min)/8);
 		      var d = new Date(axis.min);
 		      var sgn = '+'; if ( d.getTimezoneOffset() < 0 ) { sgn = '-'; }
-		      var min_date = checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()) + '<br> UTC' + sgn + Math.round(d.getTimezoneOffset()/60);
+		      var min_date = checkDay(d.getDay()) + ' ' + checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()) + '<br> UTC' + sgn + Math.round(d.getTimezoneOffset()/60);
 		      res.push([axis.min,min_date]);
 		      for ( i=axis.min+dif; i<axis.max; i += dif ) {
 			d = new Date(i);
