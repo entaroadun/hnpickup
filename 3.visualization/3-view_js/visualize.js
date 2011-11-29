@@ -114,7 +114,7 @@ $(function () {
 	   },
          yaxes: [
            { position: "left", tickDecimals: 0, tickSize: 0, min: 0, max: QUANTILES.max_news },
-           { position: "right", tickDecimals: 3, tickSize: 0, min: 0, max: QUANTILES.max_pickup }
+           { position: "right", tickDecimals: 2, tickSize: 0, min: 0, max: QUANTILES.max_pickup }
          ],
          legend: { container: $('#legend') }
       };
