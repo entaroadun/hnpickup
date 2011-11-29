@@ -34,6 +34,8 @@ $(function () {
   // ====================================
   // Global quantile data
   var QUANTILES = {};
+  // Global graph grid markings
+  var MARKINGS = {};
   // Global graph options
   var OPTIONS = {};
   // Global graph data
@@ -85,6 +87,11 @@ $(function () {
     function onDataReceived(quantiles) {
       // store the data in a global variable
       QUANTILES = quantiles[0];
+      // Create grid with quantile marking 
+      // for right yaxis
+      MARKINGS = [
+	{ color: '#BDAEAC', y2axis: { from: 0, to: QUANTILES.quant2 } }
+      ];
       // data graph options
       // http://people.iola.dk/olau/flot/API.txt
       // (we want global max in the graph)
@@ -116,8 +123,10 @@ $(function () {
            { position: "left", tickDecimals: 0, tickSize: 0, min: 0, max: QUANTILES.max_news },
            { position: "right", tickDecimals: 2, tickSize: 0, min: 0, max: QUANTILES.max_pickup }
          ],
-         legend: { container: $('#legend') }
+         legend: { container: $('#legend') },
+	 grid: { markings: MARKINGS }
       };
+     
       // now we are ready to load the graph
       // ("time sensitive" data)
       fetchGraphData();
