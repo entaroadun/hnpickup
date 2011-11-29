@@ -71,9 +71,9 @@
 .ui-state-hover a, .ui-state-hover a:hover { color: #212121; text-decoration: none; }
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #888888; background-color: #BCB9B7; font-weight: normal; color: #212121; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #212121; text-decoration: none; }
-.ui-widget :active { outline: none; text-decoration: none; }
-.ui-widget :visited { outline: none; text-decoration: none; }
-.ui-widget :link { outline: none; text-decoration: none; }
+.ui-widget :active { text-decoration: none; }
+.ui-widget :visited { outline: 0; text-decoration: none; }
+.ui-widget :link { text-decoration: none; }
 
 /* Interaction Cues
 ----------------------------------*/
