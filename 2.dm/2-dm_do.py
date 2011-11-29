@@ -143,7 +143,7 @@ class MainHandler(webapp.RequestHandler):
     score_newest = []
     pickup_ratio = []
     qry = db.GqlQuery('SELECT * FROM HNSCORE ORDER BY etime DESC')
-    results = qry.fetch(1000)
+    results = qry.fetch(672) ## whole last week data
     for result in results:
       score_news.append(result.score_news)
       score_newest.append(result.score_newest)

@@ -13,5 +13,5 @@ cron:
 - description: HN timing quantiles calculations at the backend
   url: /dm_process
   target: dm
-  schedule: every 2 hours
+  schedule: every 1 hours
 
