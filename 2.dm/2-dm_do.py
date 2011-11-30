@@ -66,6 +66,7 @@ QUANTILE_VERY_GOOD = 0.9
 QUANTILE_GOOD = 0.8
 QUANTILE_SO_SO = 0.7
 QUANTILE_MAX = 0.999
+LAST_N_DATA_ELEMENTS = 672
 
 ## =================================
 ## === ETL data table, very simple
@@ -143,7 +144,7 @@ class MainHandler(webapp.RequestHandler):
     score_newest = []
     pickup_ratio = []
     qry = db.GqlQuery('SELECT * FROM HNSCORE ORDER BY etime DESC')
-    results = qry.fetch(672) ## whole last week data
+    results = qry.fetch(LAST_N_DATA_ELEMENTS)
     for result in results:
       score_news.append(result.score_news)
       score_newest.append(result.score_newest)
