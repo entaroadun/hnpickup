@@ -3,42 +3,41 @@
 ## == AI classes, what's next?"
 ## =============================
 
-How about if you apply your new strengths to the 
-real world data? There are a lot of challenging 
-problems waiting to be solved by you. But let's 
-start small first. The first step is to get your 
-own data. 
+Apply your new strengths to the real world data. 
+There are a lot of challenging data mining problems 
+waiting to be solved. Let's start small. 
 
-Is there any website that you visit every day?
-I'm sure it produces fresh content daily: 
-new articles, new stats, new numbers. How about 
-you start collecting them? If you have your own
-data you can use for answering new interesting 
-questions.
+The first step is to get your own data. Is there 
+any websites that you visit every day? I'm sure 
+they produce fresh content every day: new articles,
+new stats, new numbers. How about you start 
+collecting them? If you have your own data 
+you decide what interesting question it may answer.
 
-Does your favorite website have any trends? More
-articles are published in summer than winter?
-More people are willing to "like" the articles
-in spring than in autumn. Is it possible to predict
-which article will be more "liked" on Facebook?
+Next step. Does your favorite website have any 
+trends? More articles are published in summer 
+than in winter? More people are willing to "like" 
+articles in spring than in autumn. Is it possible 
+to predict which article will create more web traffic,
+thus, more revenue from advertisements?
 
-If you get an answer you should display it for 
-others to see. Do it so that it's pleasurable 
+Finally, once you mine the answer you should 
+display it. Do it so that it's pleasurable 
 for the eye. Colorful time series or multidimensional 
 scaling should do the trick. Describe your graph 
 so the people not familiar with your project 
 can understand it and enjoy it.
 
-What? It seems a lot of work? Well, here is a source
-code that deploys with one command on Google App 
+Does it seem like a lot of work? Well, here is a source
+code that deploys your app with one command on Google App 
 Engine. You just need to focus on where to get 
 the data (ETL), what to do with it (DM), and how
-to display it (VISUALIZATION). The examples are ready 
-for you to swap them with your own.
+to display it (VISUALIZATION). The source code has example
+that you can swap with an idea of your own.
 
 Little by little you will master how to add monetary
-value to your data and sell it in your successful
-startup.
+value to your data, sell it, or build a business
+model.
 
 ## =============================
 ## == START
@@ -143,11 +142,11 @@ data on the user interface will clog the decision making
 process.
 
 ## =============================
-## == HOPE
+## == FUTURE
 ## =============================
 
-The hope is that young start-ups can use this 
+The hope is that early stage start-ups can use this 
 code to quickly organize their thoughts and prototype 
 their idea. Google App Engine can run this app for free, 
 giving opportunity to demonstrate a working version of 
-their idea and bigger potential for investors.
+their idea.
