@@ -69,13 +69,14 @@ website is properly indexed by Google:
 
 https://www.google.com/webmasters/tools
 
-If you want advertisements to pay your app engine bill, 
-apply here:
+Don't forget to rename your app in the app.yaml file:
 
-https://www.google.com/adsense/
+application: hnpickupdev -> application: yourapp
 
-Don't apply before you build your website because you will
-get rejected.
+Current source code requires at least six data points.
+That means you have to run "/etl_process" webpage at
+least six times and "/dm_process" at least once
+before you see a graph.
 
 ## =============================
 ## == INTRO
