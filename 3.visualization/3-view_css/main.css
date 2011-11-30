@@ -50,8 +50,9 @@ litup effect
   text-shadow: 0 0 5px white;
 }
 /*
-AdSense program goes to the
-left side (opposite to the legend)
+if we had an add
+we would move it
+to the far left
 */
 #ads {
   margin: 0;
@@ -145,8 +146,8 @@ inside the "flip" element
   position: relative;
   margin: 0;
   width: 4%;
-  top: -88%;
-  left: 84%;
+  top: -89%;
+  left: 86%;
   color: #807B77;
   font-size: 1.1em;
 }
@@ -156,7 +157,7 @@ inside the "flip" element
   letter-spacing: -3px;
   margin: 0;
   width: 4%;
-  top: -90%;
+  top: -91%;
   left: 93%;
   color: #807B77;
   font-size: 0.8em;

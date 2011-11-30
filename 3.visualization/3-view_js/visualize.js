@@ -88,9 +88,10 @@ $(function () {
       // store the data in a global variable
       QUANTILES = quantiles[0];
       // Create grid with quantile marking 
-      // for right yaxis
+      // for right yaxis (slight red with gray color)
       MARKINGS = [
-	{ color: '#BDAEAC', y2axis: { from: 0, to: QUANTILES.quant2 } }
+	{ color: '#BEAFAD', y2axis: { from: 0, to: QUANTILES.quant3 } },
+	{ color: '#BCB4B2', y2axis: { from: QUANTILES.quant3, to: QUANTILES.quant1 } }
       ];
       // data graph options
       // http://people.iola.dk/olau/flot/API.txt
