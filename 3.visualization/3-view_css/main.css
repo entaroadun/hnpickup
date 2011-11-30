@@ -39,7 +39,6 @@ litup effect
 #title {
   margin: 0;
   padding: 0;
-  outline: none;
   color: white;
   display: block;
   margin-top: 1%;
@@ -57,8 +56,10 @@ to the far left
 #ads {
   margin: 0;
   padding: 0;
-  margin-top: 10%;
+  margin-top: -33%;
   float: left;
+  margin-left: 2%;
+  text-align: left;
 }
 /* 
 This part if CSS defines 
@@ -150,6 +151,8 @@ inside the "flip" element
   left: 86%;
   color: #807B77;
   font-size: 1.1em;
+  display: block;
+  text-decoration: none;
 }
 /* go back to graph*/
 #grapher {
@@ -161,6 +164,8 @@ inside the "flip" element
   left: 93%;
   color: #807B77;
   font-size: 0.8em;
+  display: block;
+  text-decoration: none;
 }
 #legend {
   margin: 0;
