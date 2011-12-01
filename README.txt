@@ -5,7 +5,9 @@
 
 You will need some basic programming and statistical skills.
 Web Development, jQuery, Python, and Machine Learning
-skills are a plus.  
+skills are a plus. If you can look at new data and 
+immediately see where data mining adds new value, then
+you are definitely overqualified to use this source code.
 
 The first step is to get your own data. Is there 
 any websites that you visit every day? I'm sure 
