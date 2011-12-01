@@ -1,11 +1,11 @@
 ## =============================
-## == "I took CS, DM, ML, NLP, and 
-## == AI classes, what's next?"
+## == How to build a data mining
+## == web app?
 ## =============================
 
-Apply your new strengths to the real world data. 
-There are a lot of challenging data mining problems 
-waiting to be solved. Let's start small. 
+You will need some basic programming and statistical skills.
+Web Development, jQuery, Python, and Machine Learning
+skills are a plus.  
 
 The first step is to get your own data. Is there 
 any websites that you visit every day? I'm sure 
@@ -93,9 +93,9 @@ the "newest" page to "news" page.
 ## == MODEL
 ## =============================
 
-This app can serve as a simple business model where 
-you claim is that your DATA MINING application 
-bring better EXPERIENCE, OUTCOME, and VALUE to 
+This app can serve as a very simple business model 
+where you claim is that your DATA MINING application 
+brings better EXPERIENCE, OUTCOME, and VALUE to 
 existing products. How come? If you start adding new
 knowledge to existing data you will see the
 pattern: large data can be abstracted to a small 
