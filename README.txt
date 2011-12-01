@@ -151,3 +151,14 @@ code to quickly organize their thoughts and prototype
 their idea. Google App Engine can run this app for free, 
 giving opportunity to demonstrate a working version of 
 their idea.
+
+## =============================
+## == OTHER
+## =============================
+
+Similar data mining app:
+
+http://stephenholiday.com/articles/2011/stack-overflow-by-day/
+
+Remember, time series analysis is just a small portion 
+of data mining.
