@@ -75,6 +75,14 @@ Don't forget to rename your app in the app.yaml file:
 
 application: hnpickupdev -> application: yourapp
 
+Deploy your frontend with one command:
+
+appcfg.py update ./
+
+Deploy backend with one command:
+
+appcfg.py backends ./ update
+
 Current source code requires at least six data points.
 That means you have to run "/etl_process" webpage at
 least six times and "/dm_process" at least once
