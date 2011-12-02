@@ -85,7 +85,7 @@ appcfg.py backends ./ update
 
 Current source code requires at least six data points.
 That means you have to run "/etl_process" webpage at
-least six times and "/dm_process" at least once
+least six times and then "/dm_process" at least once
 before you see a graph.
 
 ## =============================
