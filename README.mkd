@@ -1,7 +1,5 @@
-## =============================
-## == How to build a data mining
-## == web app?
-## =============================
+# How to build a data mining web app?
+
 
 You will need some basic programming and statistical skills.
 Web Development, jQuery, Python, and Machine Learning
@@ -41,56 +39,53 @@ Little by little you will master how to add monetary
 value to your data, sell it, or build a business
 model.
 
-## =============================
-## == START
-## =============================
+## START
+
 
 Create an account and new app placeholder at:
 
-http://appengine.google.com/
+    http://appengine.google.com/
 
 Please install Google App Engine SDK from:
 
-http://code.google.com/appengine/downloads.html
+    http://code.google.com/appengine/downloads.html
 
 Getting started with Python web app development is here:
 
-http://code.google.com/appengine/docs/python/gettingstarted/
+    http://code.google.com/appengine/docs/python/gettingstarted/
 
 For lunching the app you can use this nice GUI:
 
-http://code.google.com/p/google-appengine-mac-launcher/
-http://code.google.com/p/google-appengine-wx-launcher/
+   http://code.google.com/p/google-appengine-mac-launcher/
+   http://code.google.com/p/google-appengine-wx-launcher/
 
 It's also good to have Google Analytics account:
 
-http://www.google.com/analytics/
+   http://www.google.com/analytics/
 
 You can also check webmaster tools to make sure your
 website is properly indexed by Google:
 
-https://www.google.com/webmasters/tools
+   https://www.google.com/webmasters/tools
 
 Don't forget to rename your app in the app.yaml file:
 
-application: hnpickupdev -> application: yourapp
+   application: hnpickupdev -> application: yourapp
 
 Deploy your frontend with one command:
 
-appcfg.py update ./
+   appcfg.py update ./
 
 Deploy backend with one command:
 
-appcfg.py backends ./ update
+   appcfg.py backends ./ update
 
 Current source code requires at least six data points.
 That means you have to run "/etl_process" webpage at
 least six times and then "/dm_process" at least once
 before you see a graph.
 
-## =============================
-## == INTRO
-## =============================
+## INTRO
 
 This is example of a simple data mining application.
 Here Hacker News aggregator is our source of data. 
@@ -99,9 +94,9 @@ to post an article or a story on Hacker News website so
 other people will up-vote it and it will get to from 
 the "newest" page to "news" page.
 
-## =============================
-## == MODEL
-## =============================
+
+## MODEL
+
 
 This app can serve as a very simple business model 
 where you claim is that your DATA MINING application 
@@ -118,43 +113,43 @@ hours; this is your small chunk of information.
 This small chunk will save you 30 min of stuck
 in traffic: better experience, outcome and value.
 
-## =============================
-## == CODE
-## =============================
+
+## CODE
+
 
 Most data mining application will have very similar 
 information flow:
 
-1.ETL -> 2.DM -> 3.VISUALIZATION
+   1.ETL -> 2.DM -> 3.VISUALIZATION
 
 Which means:
 
-1.GET THE DATA -> 2.ADD VALUE -> 3.USE IT
+   1.GET THE DATA -> 2.ADD VALUE -> 3.USE IT
 
 That's why the code is organized into three sections:
 
-1. ETL = Extract, Transform, Load (GET THE DATA)
-2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
-3. VISUALISATION = Data presentation in a format 
-   that can support decision making process (USE IT, SHOW IT)
+   1. ETL = Extract, Transform, Load (GET THE DATA)
+   2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
+   3. VISUALISATION = Data presentation in a format 
+     that can support decision making process (USE IT, SHOW IT)
 
 You can think of the code as a "Hello, World!" web data mining 
 example. You shouldn't be surprised that most of the code went
 into visualization. That's how you get your customers to buy-in. 
 Data for visualization is obtained using JSON serialization.
 
-## =============================
-## == WARNING
-## =============================
+
+## WARNING
+
 
 This app shows some raw data. For more complicated projects
 it might not be good idea to show the raw data. Too much
 data on the user interface will clog the decision making
 process.
 
-## =============================
-## == FUTURE
-## =============================
+
+## FUTURE
+
 
 The hope is that early stage start-ups can use this 
 code to quickly organize their thoughts and prototype 
@@ -162,13 +157,14 @@ their idea. Google App Engine can run this app for free,
 giving opportunity to demonstrate a working version of 
 their idea.
 
-## =============================
-## == OTHER
-## =============================
+
+## OTHER
+
 
 Similar data mining app:
 
-http://stephenholiday.com/articles/2011/stack-overflow-by-day/
+   http://stephenholiday.com/articles/2011/stack-overflow-by-day/
 
 Remember, time series analysis is just a small portion 
 of data mining.
+
