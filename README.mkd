@@ -56,29 +56,31 @@ Getting started with Python web app development is here:
 
 For lunching the app you can use this nice GUI:
 
-   http://code.google.com/p/google-appengine-mac-launcher/
-   http://code.google.com/p/google-appengine-wx-launcher/
+
+    http://code.google.com/p/google-appengine-mac-launcher/
+    http://code.google.com/p/google-appengine-wx-launcher/
+
 
 It's also good to have Google Analytics account:
 
-   http://www.google.com/analytics/
+    http://www.google.com/analytics/
 
 You can also check webmaster tools to make sure your
 website is properly indexed by Google:
 
-   https://www.google.com/webmasters/tools
+    https://www.google.com/webmasters/tools
 
 Don't forget to rename your app in the app.yaml file:
 
-   application: hnpickupdev -> application: yourapp
+    application: hnpickupdev -> application: yourapp
 
 Deploy your frontend with one command:
 
-   appcfg.py update ./
+    appcfg.py update ./
 
 Deploy backend with one command:
 
-   appcfg.py backends ./ update
+    appcfg.py backends ./ update
 
 Current source code requires at least six data points.
 That means you have to run "/etl_process" webpage at
@@ -120,18 +122,17 @@ in traffic: better experience, outcome and value.
 Most data mining application will have very similar 
 information flow:
 
-   1.ETL -> 2.DM -> 3.VISUALIZATION
+  1.ETL -> 2.DM -> 3.VISUALIZATION
 
 Which means:
 
-   1.GET THE DATA -> 2.ADD VALUE -> 3.USE IT
+  1.GET THE DATA -> 2.ADD VALUE -> 3.USE IT
 
 That's why the code is organized into three sections:
 
-   1. ETL = Extract, Transform, Load (GET THE DATA)
-   2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
-   3. VISUALISATION = Data presentation in a format 
-     that can support decision making process (USE IT, SHOW IT)
+  1. ETL = Extract, Transform, Load (GET THE DATA)
+  2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
+  3. VISUALISATION = Data presentation in a format  that can support decision making process (USE IT, SHOW IT)
 
 You can think of the code as a "Hello, World!" web data mining 
 example. You shouldn't be surprised that most of the code went
@@ -163,7 +164,7 @@ their idea.
 
 Similar data mining app:
 
-   http://stephenholiday.com/articles/2011/stack-overflow-by-day/
+    http://stephenholiday.com/articles/2011/stack-overflow-by-day/
 
 Remember, time series analysis is just a small portion 
 of data mining.
