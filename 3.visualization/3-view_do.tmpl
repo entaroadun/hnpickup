@@ -52,7 +52,7 @@
         <div id='trim'><div>TRIMMING</div></div>
         <div id='smooth'><div>SMOOTHING</div></div>
         <!-- I tried to have here a message: 'Please wait', but then it doesn't look good when flipping -->
-        <div id='plot' class='cta'></div>  
+        <div id='plot'></div>  
         <!-- y axes labels  -->
         <div id='y_label_1'>Averge score</div>
         <div id='y_label_2'>Pickup ratio</div>
@@ -60,22 +60,22 @@
 	<a href='#' id='helper' class='cta'><b>?</b></a>
       </div>
       <div id='help'>
-        <div id='definitions' class='cta'>
+        <div id='definitions'>
 	  Some good stories posted on Hacker News are upvoted while some are not. Is it always the story or is the time when it's posted? The graph should tell. It follows these definitions:
 	  <ul>
 	    <li><b>Newest stories top average score</b> - is an average of six most voted stories on the HN <b>newest</b> page; indirectly, it measures the number of competing stories or the number of story submitters. </li>
-	    <li><b>News stories bottom average score</b> - is an average of six least voted stories on the HN <b>news</b> page; indirectly, it measures the number of fresh stories or the number of story upvoters. </li>
-	    <li><b>Pickup ratio</b> - is equal to <b>Newest stories top average score</b> divided by <b>News stories bottom average score</b>; indirectly, it measures what is your chance of getting from <b>newest</b> to <b>news</b> page; you want a lot of upvoters to be upvoting and very few submitters to be submitting. </li>
+	    <li><b>News stories bottom average score</b> - is an average of six least voted stories on the HN <b>front</b> page; indirectly, it measures the number of fresh stories or the number of story upvoters. </li>
+	    <li><b>Pickup ratio</b> - is equal to <b>Newest stories top average score</b> divided by <b>News stories bottom average score</b>; indirectly, it measures what is your chance of getting from <b>newest</b> to the <b>front</b> page; you want a lot of upvoters to be upvoting and very few submitters to be submitting. </li>
 	    <li><b>Now it's ... time</b> - gives four recommendations whether now is good time to submit or not. There are four possible values mapped to top four <b>pickup ratio</b> quantiles: <b>very good</b>, <b>good</b>, <b>so-so</b>, and <b>bad</b>. </li>
 	  </ul>
-	  This small web application is an amalgam of ETL, data mining, and visualization processes with focus on time series analysis. Data from other websites is gathered, enhanced, and presented as decision support tool. Source code will be soon available from <a id='github' href='https://github.com/entaroadun/hnpickup' onclick='document.location.href=this.href'>GitHub</a>.
+	  This small web application is an amalgam of ETL, data mining, and visualization processes with focus on time series analysis. Data from other websites is gathered, enhanced, and presented as decision support tool. Source code is available at <a id='github' href='https://github.com/entaroadun/hnpickup' onclick='document.location.href=this.href'>GitHub</a>.
         </div>
 	<!-- "go back" button - just for show so people know how to go back (flip) --> 
 	<a href='#' id='grapher' class='cta'><b>&lt;&lt;</b></a>
       </div>
     </div>
     <!-- graph legend -->
-    <div id='legend' class='cta'></div>
+    <div id='legend'></div>
     <!-- recommendation systm goes here -->
     <a id='recommendation' href='#'>Now it's <span id='timing'>...</span> time to <span id='submit'>submit</span> a story</a>
     <br/>

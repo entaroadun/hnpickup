@@ -1,5 +1,5 @@
 application: hnpickupdev
-version: 8
+version: 9
 runtime: python
 api_version: 1
 
@@ -38,6 +38,9 @@ handlers:
 - url: /hnpickup_web_app_statistics_snapshot.png
   static_files: 3.visualization/3-view_docs/hnp_web_app_statistics_snapshot.png
   upload: 3.visualization/3-view_docs/hnp_web_app_statistics_snapshot.png
+- url: /humans\.txt
+  static_files: 3.visualization/3-view_humans.txt
+  upload: 3.visualization/3-view_humans.txt
 - url: /robots\.txt
   static_files: 3.visualization/3-view_robots.txt
   upload: 3.visualization/3-view_robots.txt
