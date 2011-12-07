@@ -169,3 +169,16 @@ Similar data mining app:
 Remember, time series analysis is just a small portion 
 of data mining.
 
+## BUSINESS
+
+Here is example of a business model that does exacly that:
+
+http://seatgeek.com/
+
+1. ETL - events + cost
+2. DM - personalized information extraction (the COLUMBUS engine)
+3. VISUALIZATION - calendar view + "theatre" view + price oprions
+
+
+Here
+
