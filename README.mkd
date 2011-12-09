@@ -158,6 +158,12 @@ their idea. Google App Engine can run this app for free,
 giving opportunity to demonstrate a working version of 
 their idea.
 
+If you are ambitious and you want to add value to your data
+using sophisticated statistical methods I suggest to watch
+Stanford on-line classes at http://www.ml-class.org (if you
+don't want to login to get the video lectures, here is the 
+hack: http://news.ycombinator.com/item?id=3335753)
+
 
 ## OTHER
 
