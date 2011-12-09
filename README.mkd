@@ -132,7 +132,7 @@ That's why the code is organized into three sections:
 
   1. ETL = Extract, Transform, Load (GET THE DATA)
   2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
-  3. VISUALISATION = Data presentation in a format  that can support decision making process (USE IT, SHOW IT)
+  3. VISUALIZATION = Data presentation in a format  that can support decision making process (USE IT, SHOW IT)
 
 You can think of the code as a "Hello, World!" web data mining 
 example. You shouldn't be surprised that most of the code went
@@ -159,7 +159,7 @@ giving opportunity to demonstrate a working version of
 their idea.
 
 If you are ambitious and you want to add value to your data
-using sophisticated statistical methods I suggest to watch
+using sophisticated statistical methods I suggest you watch
 Stanford on-line classes at http://www.ml-class.org (if you
 don't want to login to get the video lectures, here is the 
 hack: http://news.ycombinator.com/item?id=3335753)
@@ -177,12 +177,12 @@ of data mining.
 
 ## BUSINESS
 
-Here is example of a business model that does exacly that:
+Here is example of a business model that does exactly that:
 
 http://seatgeek.com/
 
 1. ETL - events + cost + seats
 2. DM - personalized information extraction (the COLUMBUS event engine)
-3. VISUALIZATION - calendar view + "theatre" view + price oprions
+3. VISUALIZATION - calendar view + "theatre" view + price options
 
 
