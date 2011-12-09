@@ -186,7 +186,7 @@ http://seatgeek.com/
 
 You will notice that the website has these three components:
 
-    1. ETL - events + cost + seats
+    1. ETL - events + cost + seats (API pipelines or scraper?)
     2. DM - personalized information extraction (the COLUMBUS event engine)
     3. VISUALIZATION - calendar view + "theatre" view + price options
 
