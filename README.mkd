@@ -122,17 +122,18 @@ in traffic: better experience, outcome and value.
 Most data mining application will have very similar 
 information flow:
 
-  1.ETL -> 2.DM -> 3.VISUALIZATION
+    1.ETL -> 2.DM -> 3.VISUALIZATION
 
 Which means:
 
-  1.GET THE DATA -> 2.ADD VALUE -> 3.USE IT
+    1.GET THE DATA -> 2.ADD VALUE -> 3.USE IT
 
 That's why the code is organized into three sections:
 
-  1. ETL = Extract, Transform, Load (GET THE DATA)
-  2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
-  3. VISUALIZATION = Data presentation in a format  that can support decision making process (USE IT, SHOW IT)
+    1. ETL = Extract, Transform, Load (GET THE DATA)
+    2. DM = Data Mining (ENRICH THE DATA, ADD VALUE)
+    3. VISUALIZATION = Data presentation in a format that 
+    can support decision making process (USE IT, SHOW IT)
 
 You can think of the code as a "Hello, World!" web data mining 
 example. You shouldn't be surprised that most of the code went
@@ -170,19 +171,23 @@ hack: http://news.ycombinator.com/item?id=3335753)
 
 Similar data mining app:
 
-    http://stephenholiday.com/articles/2011/stack-overflow-by-day/
+http://stephenholiday.com/articles/2011/stack-overflow-by-day/
 
 Remember, time series analysis is just a small portion 
 of data mining.
 
+
 ## BUSINESS
+
 
 Here is example of a business model that does exactly that:
 
 http://seatgeek.com/
 
-1. ETL - events + cost + seats
-2. DM - personalized information extraction (the COLUMBUS event engine)
-3. VISUALIZATION - calendar view + "theatre" view + price options
+You will notice that the website has these three components:
+
+    1. ETL - events + cost + seats
+    2. DM - personalized information extraction (the COLUMBUS event engine)
+    3. VISUALIZATION - calendar view + "theatre" view + price options
 
 
