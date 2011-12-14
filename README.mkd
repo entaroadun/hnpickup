@@ -190,4 +190,9 @@ You will notice that the website has these three components:
     2. DM - personalized information extraction (the COLUMBUS event engine)
     3. VISUALIZATION - calendar view + "theatre" view + price options
 
+## BOOKS
+
+There are books that cover the topic of finding business value in data, just one of them:
+
+http://www.amazon.com/Big-Data-Now-Perspectives-ebook/dp/B005KDPILI
 
