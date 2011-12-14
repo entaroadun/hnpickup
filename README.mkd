@@ -194,5 +194,5 @@ You will notice that the website has these three components:
 
 There are books that cover the topic of finding business value in data, just one of them:
 
-http://www.amazon.com/Big-Data-Now-Perspectives-ebook/dp/B005KDPILI
+http://www.amazon.com/Mining-Web-Transforming-Customer-Value/dp/0471416096
 
