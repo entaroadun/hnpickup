@@ -190,6 +190,23 @@ You will notice that the website has these three components:
     2. DM - personalized information extraction (the COLUMBUS event engine)
     3. VISUALIZATION - calendar view + "theatre" view + price options
 
+Another example of a working buisness model is SHOPOBOT:
+
+http://www.shopobot.com/
+
+They data mine prices on Amazon marketplace.
+
+The hardest thing is finding a value in data. One solution would be applying
+"time is money" and "money is value" rule to your data. Often times search does
+exactly that. Both SEATGEEK and SHOPOBOT search for good shopping deals and save
+you time and money. The same thinking might be applied to many other areas of daily 
+activities beside electronics and tickets. This is good start. But as soon as you
+master finding places where your web app saves time and money you should move to
+more advanced areas where domain expertise is needed. Medicine, finance, litigation, 
+and manufacturing are four big markets. Each is producing tons of data every day.
+Find an expert, a medical doctor or an accountant, ask about a mundane task that one
+performs every day but could be automated. You just earned your first $1 mln!
+
 ## BOOKS
 
 There are books that cover the topic of finding business value in data, just one of them:
