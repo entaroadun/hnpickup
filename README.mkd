@@ -138,8 +138,13 @@ That's why the code is organized into three sections:
 You can think of the code as a "Hello, World!" web data mining 
 example. You shouldn't be surprised that most of the code went
 into visualization. That's how you get your customers to buy-in. 
-Data for visualization is obtained using JSON serialization. 
-More on data visualization using JS is here https://gist.github.com/1515418.
+Data for visualization is obtained using JSON serialization.
+
+More on *data sets* (ETL) with user recommendations/ratings is here https://gist.github.com/1653794
+
+More on *data mining* (DM) algorithms is here http://mloss.org/software/
+
+More on *data visualization* using JS is here https://gist.github.com/1515418.
 
 
 ## WARNING
